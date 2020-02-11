@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Ordens de Serviço</h2>
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ os.numero }}</a>
+                <small class="text-muted">{{ os.cliente }}</small>
+            </div>
+            <h4 class="article-title" >{{ os.equipamento }}</h4>
+            <p class="article-content">{{ os.status }}</p>
+        </div>
+    </article>
+
+{% endblock content %}
