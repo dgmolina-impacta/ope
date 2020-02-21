@@ -1,8 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm, ClientForm
-app = Flask(__name__)
-
-app.config ['SECRET_KEY'] = '732c3eeec9fb75e61d6edc6458d2faad'
+from flask import render_template, url_for, flash, redirect
+from osmanager import app
+from osmanager.forms import RegistrationForm, LoginForm, ClientForm
+from osmanager.models import User, Client
 
 os = {"numero": "xxxxx",
     "cliente": "Daniel Gomes Molina",
@@ -33,6 +32,3 @@ def login():
 def client():
     form = ClientForm()
     return render_template("client.html", title='Novo Cliente', form=form)
-
-if __name__ == "__main__":
-    app.run(debug=True)

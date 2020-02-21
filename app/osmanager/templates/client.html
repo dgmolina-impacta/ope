@@ -6,36 +6,39 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Cadastrar Cliente</legend>
                 
-                <div class="form-group">
-                    {{ form.cpf.label(class="form-control-label") }}
+                <div class="row pl-2">
+                    <div class="form-group col-md-4">
+                        {{ form.cpf.label(class="form-control-label") }}
 
-                    {% if form.cpf.errors %}
-                        {{ form.cpf(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.cpf.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.cpf(class="form-control form-control-lg") }}
-                    {% endif %}
+                        {% if form.cpf.errors %}
+                            {{ form.cpf(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.cpf.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.cpf(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group col-md-8">
+                        {{ form.name.label(class="form-control-label") }}
+                        {% if form.name.errors %}
+                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.name(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    {{ form.name.label(class="form-control-label") }}
-                    {% if form.name.errors %}
-                        {{ form.name(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.name.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.name(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                
-                <div class="form-group">
+
+                <div class="row pl-2">
+                <div class="form-group col-md-4">
                     {{ form.phone.label(class="form-control-label") }}
                     {% if form.phone.errors %}
                     {{ form.phone(class="form-control form-control-lg is-invalid") }}
@@ -49,7 +52,7 @@
                     {% endif %}
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     {{ form.mobile.label(class="form-control-label") }}
                     {% if form.mobile.errors %}
                     {{ form.mobile(class="form-control form-control-lg is-invalid") }}
@@ -62,8 +65,10 @@
                         {{ form.mobile(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                </div>
 
-                <div class="form-group">
+                <div class="row pl-2">
+                <div class="form-group col-md-10">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
                     {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -76,8 +81,10 @@
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                </div>
 
-                <div class="form-group">
+                <div class="row pl-2">
+                <div class="form-group col-md-4">
                     {{ form.cep.label(class="form-control-label") }}
                     {% if form.cep.errors %}
                     {{ form.cep(class="form-control form-control-lg is-invalid") }}
@@ -91,7 +98,7 @@
                     {% endif %}
                 </div>
                     
-                <div class="form-group">
+                <div class="form-group col-md-8">
                     {{ form.address.label(class="form-control-label") }}
                     {% if form.address.errors %}
                     {{ form.address(class="form-control form-control-lg is-invalid") }}
@@ -104,8 +111,10 @@
                         {{ form.address(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                </div>
 
-                <div class="form-group">
+                <div class="row pl-2">
+                <div class="form-group col-md-2">
                     {{ form.number.label(class="form-control-label") }}
                     {% if form.number.errors %}
                     {{ form.number(class="form-control form-control-lg is-invalid") }}
@@ -119,7 +128,7 @@
                     {% endif %}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-4">
                     {{ form.complement.label(class="form-control-label") }}
                     {% if form.complement.errors %}
                     {{ form.complement(class="form-control form-control-lg is-invalid") }}
@@ -133,7 +142,23 @@
                     {% endif %}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-6">
+                    {{ form.neighborhood.label(class="form-control-label") }}
+                    {% if form.neighborhood.errors %}
+                    {{ form.neighborhood(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.neighborhood.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        {{ form.neighborhood(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                </div>
+
+                <div class="row pl-2">
+                <div class="form-group col-md-6">
                     {{ form.city.label(class="form-control-label") }}
                     {% if form.city.errors %}
                     {{ form.city(class="form-control form-control-lg is-invalid") }}
@@ -147,7 +172,7 @@
                     {% endif %}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-2">
                     {{ form.state.label(class="form-control-label") }}
                     {% if form.state.errors %}
                     {{ form.state(class="form-control form-control-lg is-invalid") }}
@@ -159,6 +184,7 @@
                     {% else %}
                         {{ form.state(class="form-control form-control-lg") }}
                     {% endif %}
+                </div>
                 </div>
 
 

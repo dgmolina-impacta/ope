@@ -33,35 +33,38 @@ class LoginForm(FlaskForm):
 
 
 class ClientForm(FlaskForm):
-    cpf = StringField('CPF', 
+    cpf = StringField('CPF:', 
                     validators=[DataRequired(), Length(min=11, max=11)])
     
-    name = StringField('Nome', 
+    name = StringField('Nome:', 
                     validators=[DataRequired(), Length(min=2, max=100)])
     
-    phone = StringField('Tel. Fixo')
+    phone = StringField('Tel. Fixo:')
 
-    mobile = StringField('Celular', 
+    mobile = StringField('Celular:', 
                     validators=[DataRequired()])
 
-    email = StringField('Email', 
+    email = StringField('Email:', 
                     validators=[DataRequired(), Email()])
 
-    cep = StringField('CEP', 
+    cep = StringField('CEP:', 
                     validators=[DataRequired()])
     
-    address = StringField('Endereço', 
+    address = StringField('Endereço:', 
                     validators=[DataRequired()])
 
-    number = StringField('Número', 
+    number = StringField('Número:', 
                     validators=[DataRequired()])
     
-    complement = StringField('Complemento')
+    complement = StringField('Complemento:')
 
-    city = StringField('Cidade', 
+    neighborhood = StringField ('Bairro:',
+                    validators=[DataRequired()])
+
+    city = StringField('Cidade:', 
                     validators=[DataRequired()])
     
-    state = StringField('Estado', 
+    state = StringField('Estado:', 
                     validators=[DataRequired()])
 
     submit = SubmitField('Cadastrar')
