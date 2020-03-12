@@ -1,19 +1,25 @@
 from datetime import datetime
-from osmanager import db
+from osmanager import db, login_manager
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.password}')"
+        return f"User('{self.username}', '{self.email}')"
 
 
 class Client(db.Model):
-    cpf = db.Column(db.String(11), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    cpf = db.Column(db.String(11), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer, nullable=True)
     mobile = db.Column(db.Integer, nullable=False)

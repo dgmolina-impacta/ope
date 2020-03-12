@@ -44,9 +44,9 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% else %}
-                    {{ form.password(class="form-control form-control-lg") }}
-                {% endif %}
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
                 
                 <div class="form-group">
@@ -58,9 +58,9 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% else %}
-                    {{ form.password(class="form-control form-control-lg") }}
-                {% endif %}
+                    {% else %}
+                        {{ form.confirm_password(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
             </fieldset>
             
