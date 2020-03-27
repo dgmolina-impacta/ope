@@ -18,25 +18,37 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}')"
 
 
+class Tecnico(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(30), nullable=False)
+
+    oss = db.relathioship("OS", backref="tecnico", lazy=True)
+
+    def __repr__(self):
+        return f"Tecnico('{self.nome}')"
+
+
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cpf = db.Column(db.String(11), nullable=False)
-    name = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.Integer, nullable=True)
+    nome = db.Column(db.String(100), nullable=False)
+    telefone = db.Column(db.Integer, nullable=True)
     email = db.Column(db.String(100), nullable=False)
     cep = db.Column(db.String(8), nullable=False)
-    address = db.Column(db.String(150), nullable=False)
-    number = db.Column(db.String(10), nullable=False)
-    complement = db.Column(db.String(25), nullable=True)
-    neighborhood = db.Column(db.String(25), nullable=False)
-    city = db.Column(db.String(50), nullable=False)
-    state = db.Column(db.String(2), nullable=False)
+    endereco = db.Column(db.String(150), nullable=False)
+    numero = db.Column(db.String(10), nullable=False)
+    complemento = db.Column(db.String(25), nullable=True)
+    bairro = db.Column(db.String(25), nullable=False)
+    cidade = db.Column(db.String(50), nullable=False)
+    estado = db.Column(db.String(2), nullable=False)
+
+    oss = db.relathioship("OS", backref="cliente", lazy=True)
 
     def __repr__(self):
         return f"Client('{self.cpf}', '{self.name}', '{self.phone}', '{self.mobile}', '{self.email}, '{self.cep}', '{self.address}', '{self.number}', '{self.complement}', '{self.neighborhood}', '{self.city}', '{self.state}')"
 
 
-# Falta adicionar os valores em nullable
+
 class OS(db.Model):
     numero = db.Column(db.Integer, primary_key=True)
 
@@ -53,5 +65,51 @@ class OS(db.Model):
     valor_servicos = db.Column(db.Float, nullable=True)
     valor_total = db.Column(db.Float, nullable=True)
 
-    client_id = db.Column(db.Integer, db.ForeignKey("cliente.id"), nullable=False)
-    client = db.relationship("Cliente", backref=db.backref("oss", lazy=True))
+    id_cliente = db.Column(db.Integer, db.ForeignKey("cliente.id"), nullable=False)
+    id_tecnico = db.Column(db.Integer, db.ForeignKey("tecnico.id"), nullable=True) 
+
+    orcamento = db.relathioship("Orcamento", backref="os", lazy=True, uselist=False)
+
+    equipamentos = db.relathioship("Equipamento", backref="os", lazy=True)
+    pecas = db.relathioship("Peca", backref="os", lazy=True)
+
+    def __repr__(self):
+        return f"OS('{self.numero}', '{self.status}', '{self.data_entrega}'"
+
+class Orcamento(db.Model):
+    mao_de_obra = db.Column(db.Float, nullable=False)
+    valor_total_pecas = db.Column(db.Float, nullable=False)
+    imposto_sobre_servico = db.Column(db.Float, nullable=False)
+    valor_total = db.Column(db.Float, nullable=False)
+    status = db.Column(db.String(20), nullable=False)
+
+    numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), nullable=False)
+
+class Equipamento(db.Model):
+    nro_de_serie = db.Column(db.String(20), nullable=True)
+    capacidade = db.Column(db.Float, nullable=True)
+    lacre_entrada = db.Column(db.Boolean, nullable=False)
+    lacre_saida = db.Column(db.Boolean, nullable=True)
+    marca = db.Column(db.String(20), nullable=False)
+    modelo = db.Column(db.String(50), nullable=False)
+
+    numero = db.Column(db.Integer, primary_key=True)
+    numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
+
+    def __repr__(self):
+        return f"Equipamento('{self.nro_de_serie}', '{self.marca}', '{self.modelo}')"
+
+class Peca(db.Model):
+    quantidade = db.Column(db.Integer, nullable=False)
+    descricao = db.Column(db.String(120), nullable=True)
+    marca = db.Column(db.String(30), nullable=False)
+    nome = db.Column(db.String(30), nullable=False)
+    valor_unitario = db.Column(db.Float, nullable=False)
+
+    numero db.Column(db.Integer, primary_key=True)
+    numero_os.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
+
+    def __repr__(self):
+        return f"Peca('{self.marca}', '{self.nome}', '{self.valor_unitario}', '{self.quantidade}')"
+
+# Faltou incluir a tabela Lancamento
