@@ -102,6 +102,7 @@ class Equipamento(db.Model):
     def __repr__(self):
         return f"Equipamento('{self.nro_de_serie}', '{self.marca}', '{self.modelo}')"
 
+
 class Peca(db.Model):
     quantidade = db.Column(db.Integer, nullable=False)
     descricao = db.Column(db.String(120), nullable=True)

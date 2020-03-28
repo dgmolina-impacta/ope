@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from osmanager.models import User
 
@@ -101,3 +101,10 @@ class ClientForm(FlaskForm):
                     validators=[DataRequired()])
 
     submit = SubmitField('Cadastrar')
+
+class SearchClientForm(FlaskForm):
+    procurar_por = SelectField('Procurar por', choices=[("cpf", "CPF"), ("nome", "Nome")])
+    
+    entrada_texto = StringField('', validators=[DataRequired(), Length(min=2, max=30)])
+
+    submit = SubmitField('Buscar')
