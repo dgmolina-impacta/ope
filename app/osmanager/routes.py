@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from osmanager import app, db, bcrypt
-from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm ,ClientForm
+from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm ,ClientForm, SearchClientForm
 from osmanager.models import User, Cliente
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -61,12 +61,13 @@ def account():
         flash('Sua conta foi atualizada!', 'success')
         return redirect(url_for('account'))
     elif request.method == 'GET':
-        form.username.data == current_user.username
-        form.email.data == current_user.email
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        print(f"{form.username.data} and {form.email.data}")
     return render_template("account.html", title='Account', form=form)
 
 
-@app.route('/client/register', methods=['GET', 'POST'])
+@app.route('/register/client', methods=['GET', 'POST'])
 @login_required
 def register_client():
     form = ClientForm()
@@ -80,4 +81,10 @@ def register_client():
         flash("O cliente foi registrado com sucesso", "success")
         return redirect(url_for("home"))
     return render_template("client.html", title='Novo Cliente', form=form)
+
+@app.route('/search/client')
+@login_required
+def search_client():
+    form = SearchClientForm()
+    return render_template("search_client.html", title="Pesquisar Clientes", form=form)
 

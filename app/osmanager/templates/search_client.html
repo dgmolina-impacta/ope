@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    <h2>Clientes</h2>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Pesquisa</legend>
+            
+            <div class="form-group" >
+                <div class="row">
+                    <div class="col-5">
+                        {{ form.procurar_por.label(class="form-control-label") }}
+                        {% if form.procurar_por.errors %}
+                            {{ form.procurar_por(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.procurar_por.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.procurar_por(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-5">
+                        {{ form.entrada_texto.label(class="form-control-label") }}
+                        {% if form.entrada_texto.errors %}
+                            {{ form.entrada_texto(class="form-control form-control-lg is-invalid mt-2") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.entrada_texto.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.entrada_texto(class="form-control form-control-lg mt-2") }}
+                        {% endif %}
+                    </div>
+                    <div class="col-2 search-btn">
+                        {{ form.submit(class="btn btn-secondary")}}
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+    <table class="table table-striped">
+        <thead class="thead-gray">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><a class="" href="#">Lucas</a></td>
+                <td>lucas@gmail.com</td>
+                <td>47474747</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td><a class="" href="#">Caio</a></td>
+                <td>caio@gmail.com</td>
+                <td>47474747</td>
+            </tr>
+
+        </table>
+
+
+{% endblock content %}
