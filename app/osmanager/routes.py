@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from osmanager import app, db, bcrypt
 from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm ,ClientForm
-from osmanager.models import User, Client
+from osmanager.models import User, Cliente
 from flask_login import login_user, current_user, logout_user, login_required
 
 os = {"numero": "xxxxx",

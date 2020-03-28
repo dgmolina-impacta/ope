@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from osmanager import db, login_manager
 from flask_login import UserMixin
 
@@ -22,7 +22,7 @@ class Tecnico(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(30), nullable=False)
 
-    oss = db.relathioship("OS", backref="tecnico", lazy=True)
+    oss = db.relationship("Os", backref="tecnico", lazy=True)
 
     def __repr__(self):
         return f"Tecnico('{self.nome}')"
@@ -42,14 +42,13 @@ class Cliente(db.Model):
     cidade = db.Column(db.String(50), nullable=False)
     estado = db.Column(db.String(2), nullable=False)
 
-    oss = db.relathioship("OS", backref="cliente", lazy=True)
+    oss = db.relationship("Os", backref="cliente", lazy=True)
 
     def __repr__(self):
-        return f"Client('{self.cpf}', '{self.name}', '{self.phone}', '{self.mobile}', '{self.email}, '{self.cep}', '{self.address}', '{self.number}', '{self.complement}', '{self.neighborhood}', '{self.city}', '{self.state}')"
+        return f"Client('{self.cpf}', '{self.nome}', '{self.email}, '{self.cep}', '{self.endereco}', '{self.numero}', '{self.bairro}', '{self.cidade}', '{self.estado}')"
 
 
-
-class OS(db.Model):
+class Os(db.Model):
     numero = db.Column(db.Integer, primary_key=True)
 
     data_entrega = db.Column(db.Date, nullable=False)
@@ -68,13 +67,14 @@ class OS(db.Model):
     id_cliente = db.Column(db.Integer, db.ForeignKey("cliente.id"), nullable=False)
     id_tecnico = db.Column(db.Integer, db.ForeignKey("tecnico.id"), nullable=True) 
 
-    orcamento = db.relathioship("Orcamento", backref="os", lazy=True, uselist=False)
+    orcamento = db.relationship("Orcamento", backref="os", lazy=True, uselist=False)
 
-    equipamentos = db.relathioship("Equipamento", backref="os", lazy=True)
-    pecas = db.relathioship("Peca", backref="os", lazy=True)
+    equipamentos = db.relationship("Equipamento", backref="os", lazy=True)
+    pecas = db.relationship("Peca", backref="os", lazy=True)
 
     def __repr__(self):
         return f"OS('{self.numero}', '{self.status}', '{self.data_entrega}'"
+
 
 class Orcamento(db.Model):
     mao_de_obra = db.Column(db.Float, nullable=False)
@@ -83,7 +83,9 @@ class Orcamento(db.Model):
     valor_total = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(20), nullable=False)
 
-    numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), nullable=False)
+
+    numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
+
 
 class Equipamento(db.Model):
     nro_de_serie = db.Column(db.String(20), nullable=True)
@@ -106,10 +108,11 @@ class Peca(db.Model):
     nome = db.Column(db.String(30), nullable=False)
     valor_unitario = db.Column(db.Float, nullable=False)
 
-    numero db.Column(db.Integer, primary_key=True)
-    numero_os.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
+    numero = db.Column(db.Integer, primary_key=True)
+    numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
 
     def __repr__(self):
         return f"Peca('{self.marca}', '{self.nome}', '{self.valor_unitario}', '{self.quantidade}')"
 
 # Faltou incluir a tabela Lancamento
+# teste c1 = Cliente(cpf='44140912847', nome='Daniel', email='daniel@gmail.com', cep="007", endereco="endereco1", numero="1", bairro="bairro1", cidade="cidade1", estado="estado1")
