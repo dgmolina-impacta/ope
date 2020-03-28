@@ -66,8 +66,18 @@ def account():
     return render_template("account.html", title='Account', form=form)
 
 
-@app.route('/client', methods=['GET', 'POST'])
-def client():
+@app.route('/client/register', methods=['GET', 'POST'])
+@login_required
+def register_client():
     form = ClientForm()
+    if form.validate_on_submit():
+        registro = Cliente(cpf=form.cpf.data, nome=form.name.data, telefone=form.phone.data, 
+                           celular=form.mobile.data, email=form.email.data, cep=form.cep.data, 
+                           endereco=form.address.data, numero=form.number.data, complemento=form.complement.data, 
+                           bairro=form.neighborhood.data, cidade=form.city.data, estado=form.state.data)
+        db.session.add(registro)
+        db.session.commit()
+        flash("O cliente foi registrado com sucesso", "success")
+        return redirect(url_for("home"))
     return render_template("client.html", title='Novo Cliente', form=form)
 

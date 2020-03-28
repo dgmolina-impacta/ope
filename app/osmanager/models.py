@@ -30,9 +30,10 @@ class Tecnico(db.Model):
 
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    cpf = db.Column(db.String(11), nullable=False)
+    cpf = db.Column(db.String(11), nullable=False, unique=True)
     nome = db.Column(db.String(100), nullable=False)
-    telefone = db.Column(db.Integer, nullable=True)
+    telefone = db.Column(db.String(12), nullable=True)
+    celular = db.Column(db.String(12), nullable=True)
     email = db.Column(db.String(100), nullable=False)
     cep = db.Column(db.String(8), nullable=False)
     endereco = db.Column(db.String(150), nullable=False)
