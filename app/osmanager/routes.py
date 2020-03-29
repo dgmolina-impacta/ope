@@ -93,6 +93,7 @@ def search_client():
     if form.validate_on_submit():
         opcao_busca = form.opcao_busca.data
         valor_busca = form.valor_busca.data
+        page = 1 # reseta numero da pagina ao pesquisar
     else:
         opcao_busca = request.args.get("opcao_busca", None, type=str)
         valor_busca = request.args.get("valor_busca", None, type=str)

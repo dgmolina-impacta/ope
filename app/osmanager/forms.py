@@ -108,3 +108,6 @@ class SearchClientForm(FlaskForm):
     valor_busca = StringField('', validators=[DataRequired(), Length(min=2, max=30)])
 
     submit = SubmitField('Buscar')
+
+class NewSOForm(FlaskForm):
+    nome_cliente = StringField('Nome do Cliente: ')
