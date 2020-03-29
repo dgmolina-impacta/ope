@@ -4,7 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, Selec
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from osmanager.models import User
 
-
+# Cadastro de Usuarios
 class RegistrationForm(FlaskForm):
     username = StringField('Username', 
                     validators=[DataRequired(), Length(min=2, max=20)])
