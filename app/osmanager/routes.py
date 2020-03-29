@@ -88,14 +88,18 @@ def register_client():
 def search_client():
     form = SearchClientForm()
     page = request.args.get("page", 1, type=int)
-    opcao_busca = request.args.get("opcao_busca", None, type=str)
-    valor_busca = request.args.get("valor_busca", None, type=str)
     per_page = 2
+
     if form.validate_on_submit():
-        opcao_busca = form.procurar_por.data
-        valor_busca = form.entrada_texto.data
-        return redirect(url_for('search_client', opcao_busca=opcao_busca, valor_busca=valor_busca))
-    elif opcao_busca and valor_busca:
+        opcao_busca = form.opcao_busca.data
+        valor_busca = form.valor_busca.data
+    else:
+        opcao_busca = request.args.get("opcao_busca", None, type=str)
+        valor_busca = request.args.get("valor_busca", None, type=str)
+
+    if not (opcao_busca or valor_busca):
+        clientes = Cliente.query.order_by(Cliente.nome.asc()).paginate(page=page, per_page=per_page)
+    else:
         if opcao_busca == "cpf":    
             clientes = Cliente.query.filter_by(cpf=valor_busca).paginate(page=page, per_page=per_page)
         else:
@@ -104,11 +108,7 @@ def search_client():
         if not clientes.items:
             flash("Nenhum registro encontrado", "danger")
 
-        return render_template("search_client.html", title="Pesquisar Clientes", form=form, clientes=clientes, opcao_busca=opcao_busca, valor_busca=valor_busca)
-    else:
-        clientes = Cliente.query.order_by(Cliente.nome.asc()).paginate(page=page, per_page=per_page)
-
-    return render_template("search_client.html", title="Pesquisar Clientes", form=form, clientes=clientes)
+    return render_template("search_client.html", title="Pesquisar Clientes", form=form, clientes=clientes, opcao_busca=opcao_busca, valor_busca=valor_busca)
 
 
 @app.route('/view/client/<id>', methods=['GET'])

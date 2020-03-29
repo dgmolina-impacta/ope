@@ -12,30 +12,30 @@
             <div class="form-group" >
                 <div class="row">
                     <div class="col-5">
-                        {{ form.procurar_por.label(class="form-control-label") }}
-                        {% if form.procurar_por.errors %}
-                            {{ form.procurar_por(class="form-control form-control-lg is-invalid") }}
+                        {{ form.opcao_busca.label(class="form-control-label") }}
+                        {% if form.opcao_busca.errors %}
+                            {{ form.opcao_busca(class="form-control form-control-lg is-invalid") }}
                             <div class="invalid-feedback">
-                                {% for error in form.procurar_por.errors %}
+                                {% for error in form.opcao_busca.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.procurar_por(class="form-control form-control-lg") }}
+                            {{ form.opcao_busca(class="form-control form-control-lg") }}
                         {% endif %}
                     </div>
                     
                     <div class="col-5">
-                        {{ form.entrada_texto.label(class="form-control-label") }}
-                        {% if form.entrada_texto.errors %}
-                            {{ form.entrada_texto(class="form-control form-control-lg is-invalid mt-2") }}
+                        {{ form.valor_busca.label(class="form-control-label") }}
+                        {% if form.valor_busca.errors %}
+                            {{ form.valor_busca(class="form-control form-control-lg is-invalid mt-2") }}
                             <div class="invalid-feedback">
-                                {% for error in form.entrada_texto.errors %}
+                                {% for error in form.valor_busca.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.entrada_texto(class="form-control form-control-lg mt-2") }}
+                            {{ form.valor_busca(class="form-control form-control-lg mt-2") }}
                         {% endif %}
                     </div>
                     <div class="col-2 search-btn">

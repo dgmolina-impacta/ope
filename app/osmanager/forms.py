@@ -103,8 +103,8 @@ class ClientForm(FlaskForm):
     submit = SubmitField('Cadastrar')
 
 class SearchClientForm(FlaskForm):
-    procurar_por = SelectField('Procurar por', choices=[("cpf", "CPF"), ("nome", "Nome")])
+    opcao_busca = SelectField('Procurar por', choices=[("cpf", "CPF"), ("nome", "Nome")])
     
-    entrada_texto = StringField('', validators=[DataRequired(), Length(min=2, max=30)])
+    valor_busca = StringField('', validators=[DataRequired(), Length(min=2, max=30)])
 
     submit = SubmitField('Buscar')
