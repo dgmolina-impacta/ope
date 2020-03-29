@@ -106,3 +106,8 @@ a.article-title:hover {
 .bold-char {
   font-weight: 600;
 }
+
+.bottom-aligner {
+  display: inline-block;
+  vertical-align: bottom;
+}
