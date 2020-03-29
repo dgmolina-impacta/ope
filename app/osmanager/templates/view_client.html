@@ -2,15 +2,96 @@
 
 
 {% block content %}
+    <h2>Dados do Cliente</h2>
+    <article class="media content-section">
+        <div class="media-body">
+            <p class="text-muted mb-1">Dados Pessoais</p>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Nome</th>
+                            <td>{{ cliente.nome }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">CPF</th>
+                            <td>{{ cliente.cpf }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td colspan="2">{{ cliente.email }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Telefone</th>
+                            <td>{{ cliente.telefone }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Celular</th>
+                            <td>{{ cliente.celular }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="text-muted mb-1">Endereço</p>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">CEP</th>
+                            <td>{{ cliente.cep }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Estado</th>
+                            <td>{{ cliente.estado }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Rua</th>
+                            <td colspan="2">{{ cliente.endereco }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Numero</th>
+                            <td colspan="2">{{ cliente.numero }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Complemento</th>
+                            <td colspan="2">{{ cliente.complemento }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Cidade</th>
+                            <td>{{ cliente.cidade }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Bairro</th>
+                            <td>{{ cliente.bairro }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </article>
+
     <h2>Ordens de Serviço</h2>
     <article class="media content-section">
         <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="#">{{ cliente.nome }}</a>
-                <small class="text-muted">{{ cliente.email }}</small>
-            </div>
-            <h4 class="article-title" >{{ cliente.telefone }}</h4>
+            <p class="text-muted mb-1">Implementar lista de OSs</p>
         </div>
     </article>
+    
 
 {% endblock content %}
