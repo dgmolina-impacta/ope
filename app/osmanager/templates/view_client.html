@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    <h2>Ordens de Serviço</h2>
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ cliente.nome }}</a>
+                <small class="text-muted">{{ cliente.email }}</small>
+            </div>
+            <h4 class="article-title" >{{ cliente.telefone }}</h4>
+        </div>
+    </article>
+
+{% endblock content %}

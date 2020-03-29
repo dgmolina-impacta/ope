@@ -82,9 +82,37 @@ def register_client():
         return redirect(url_for("home"))
     return render_template("client.html", title='Novo Cliente', form=form)
 
-@app.route('/search/client')
+
+@app.route('/search/client', methods=['GET', 'POST'])
 @login_required
 def search_client():
     form = SearchClientForm()
-    return render_template("search_client.html", title="Pesquisar Clientes", form=form)
+    page = request.args.get("page", 1, type=int)
+    opcao_busca = request.args.get("opcao_busca", None, type=str)
+    valor_busca = request.args.get("valor_busca", None, type=str)
+    per_page = 2
+    if form.validate_on_submit():
+        opcao_busca = form.procurar_por.data
+        valor_busca = form.entrada_texto.data
+        return redirect(url_for('search_client', opcao_busca=opcao_busca, valor_busca=valor_busca))
+    elif opcao_busca and valor_busca:
+        if opcao_busca == "cpf":    
+            clientes = Cliente.query.filter_by(cpf=valor_busca).paginate(page=page, per_page=per_page)
+        else:
+            clientes = Cliente.query.filter(db.text(f"nome LIKE '%{valor_busca}%'")).order_by(Cliente.nome.asc()).paginate(page=page, per_page=per_page)
 
+        if not clientes.items:
+            flash("Nenhum registro encontrado", "danger")
+
+        return render_template("search_client.html", title="Pesquisar Clientes", form=form, clientes=clientes, opcao_busca=opcao_busca, valor_busca=valor_busca)
+    else:
+        clientes = Cliente.query.order_by(Cliente.nome.asc()).paginate(page=page, per_page=per_page)
+
+    return render_template("search_client.html", title="Pesquisar Clientes", form=form, clientes=clientes)
+
+
+@app.route('/view/client/<id>', methods=['GET'])
+@login_required
+def view_client(id):
+    cliente = Cliente.query.get(id)
+    return render_template('view_client.html', title="Dados do Cliente", cliente=cliente)

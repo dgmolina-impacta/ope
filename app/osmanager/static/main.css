@@ -93,3 +93,12 @@ a.article-title:hover {
   background: #6c757d;
   color: #fff;
 }
+
+.btn-info {
+  background-color: #5f788a;
+  border-color: #5f788a;
+}
+
+.btn-outline-info {
+  border-color: #5f788a;
+}

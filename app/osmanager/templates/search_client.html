@@ -51,27 +51,35 @@
     <table class="table table-striped">
         <thead class="thead-gray">
             <tr>
-            <th scope="col">#</th>
+            
             <th scope="col">Nome</th>
             <th scope="col">Email</th>
             <th scope="col">Telefone</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td><a class="" href="#">Lucas</a></td>
-                <td>lucas@gmail.com</td>
-                <td>47474747</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td><a class="" href="#">Caio</a></td>
-                <td>caio@gmail.com</td>
-                <td>47474747</td>
-            </tr>
+            {% for cliente in clientes.items %}
+                <tr>
+                    
+                    <td><a href="{{url_for('view_client', id=cliente.id)}}">{{ cliente.nome }}</a></td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.telefone }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-        </table>
+    {% for page_num in clientes.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if clientes.page == page_num %}
+          <a class="btn btn-info mb-4" {% if opcao_busca %}href="{{ url_for('search_client', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('search_client', page=page_num) }}"{% endif %}>{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" {% if opcao_busca %}href="{{ url_for('search_client', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('search_client', page=page_num) }}"{% endif %}>{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
 
 
 {% endblock content %}
