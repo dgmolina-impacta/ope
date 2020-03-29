@@ -102,3 +102,7 @@ a.article-title:hover {
 .btn-outline-info {
   border-color: #5f788a;
 }
+
+.bold-char {
+  font-weight: 600;
+}

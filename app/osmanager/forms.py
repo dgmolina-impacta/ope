@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, TextAreaField, DecimalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from osmanager.models import User
 
@@ -110,4 +110,25 @@ class SearchClientForm(FlaskForm):
     submit = SubmitField('Buscar')
 
 class NewSOForm(FlaskForm):
-    nome_cliente = StringField('Nome do Cliente: ')
+    data_entrada = DateField('* Data de Entrada:', validators=[DataRequired()])
+
+    tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(), Length(max=50)])
+
+    status = SelectField("Status:", choices=[("aberta", "Aberta"), ("orcamento_aprovado", "Orçamento Aprovado"), ("finalizada", "Finalizada")])
+
+    problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(), Length(max=200)])
+
+    submit = SubmitField("Registrar")
+
+    # Equipamento
+    nro_de_serie = StringField("Número de Série:", validators=[Length(max=20)])
+    
+    capacidade = DecimalField("Capacidade:")
+
+    lacre_entrada = SelectField("* Lacre na entrada:", validators=[DataRequired()], choices=[(True, "Sim"), (False, "Não")])
+
+    lacre_saida = SelectField("* Lacre na saída:", validators=[DataRequired()], choices=[(True, "Sim"), (False, "Não")])
+
+    marca = StringField("* Marca:", validators=[DataRequired(), Length(max=20)])
+
+    modelo = StringField("* Modelo:", validators=[DataRequired(), Length(max=50)])

@@ -52,7 +52,7 @@ class Cliente(db.Model):
 class Os(db.Model):
     numero = db.Column(db.Integer, primary_key=True)
 
-    data_entrega = db.Column(db.Date, nullable=False)
+    data_entrada = db.Column(db.Date, nullable=False)
     data_saida = db.Column(db.Date, nullable=True)
     desconto = db.Column(db.Float, nullable=True)
     garantia = db.Column(db.Date, nullable=True)
@@ -70,7 +70,7 @@ class Os(db.Model):
 
     orcamento = db.relationship("Orcamento", backref="os", lazy=True, uselist=False)
 
-    equipamentos = db.relationship("Equipamento", backref="os", lazy=True)
+    equipamento = db.relationship("Equipamento", backref="os", lazy=True, uselist=False)
     pecas = db.relationship("Peca", backref="os", lazy=True)
 
     def __repr__(self):
@@ -96,7 +96,6 @@ class Equipamento(db.Model):
     marca = db.Column(db.String(20), nullable=False)
     modelo = db.Column(db.String(50), nullable=False)
 
-    numero = db.Column(db.Integer, primary_key=True)
     numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
 
     def __repr__(self):
