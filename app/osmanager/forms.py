@@ -125,9 +125,9 @@ class NewSOForm(FlaskForm):
     
     capacidade = DecimalField("Capacidade:")
 
-    lacre_entrada = SelectField("* Lacre na entrada:", validators=[DataRequired()], choices=[(True, "Sim"), (False, "Não")])
+    lacre_entrada = SelectField("* Lacre na entrada:", choices=[("sim", "Sim"), ("nao", "Não")])
 
-    lacre_saida = SelectField("* Lacre na saída:", validators=[DataRequired()], choices=[(True, "Sim"), (False, "Não")])
+#    lacre_saida = SelectField("* Lacre na saída:", choices=[("sim", "Sim"), ("nao", "Não")])
 
     marca = StringField("* Marca:", validators=[DataRequired(), Length(max=20)])
 

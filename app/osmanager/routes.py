@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from osmanager import app, db, bcrypt
 from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm, ClientForm, SearchClientForm, NewSOForm
-from osmanager.models import User, Cliente, Os
+from osmanager.models import User, Cliente, Os, Equipamento
 from flask_login import login_user, current_user, logout_user, login_required
 
 os = {"numero": "xxxxx",
@@ -72,10 +72,13 @@ def account():
 def register_client():
     form = ClientForm()
     if form.validate_on_submit():
-        registro = Cliente(cpf=form.cpf.data, nome=form.name.data, telefone=form.phone.data, 
-                           celular=form.mobile.data, email=form.email.data, cep=form.cep.data, 
-                           endereco=form.address.data, numero=form.number.data, complemento=form.complement.data, 
-                           bairro=form.neighborhood.data, cidade=form.city.data, estado=form.state.data)
+        registro = Cliente(cpf=form.cpf.data, nome=form.name.data, 
+                           telefone=form.phone.data, 
+                           celular=form.mobile.data, email=form.email.data,
+                           cep=form.cep.data, endereco=form.address.data,
+                           numero=form.number.data, complemento=form.complement.data,
+                           bairro=form.neighborhood.data, cidade=form.city.data,
+                           estado=form.state.data)
         db.session.add(registro)
         db.session.commit()
         flash("O cliente foi registrado com sucesso", "success")
@@ -118,14 +121,29 @@ def view_client(id):
     cliente = Cliente.query.get(id)
     return render_template('view_client.html', title="Dados do Cliente", cliente=cliente)
 
-@app.route('/register/so', methods=['GET', 'POST'])
+
+@app.route('/register/so/<id>', methods=['GET', 'POST'])
 @login_required
-def register_so():
+def register_so(id):
+    cliente = Cliente.query.get(id)
     form = NewSOForm()
+    print(form.validate_on_submit())
     if form.validate_on_submit():
-        registro = Os(data_entrada=form.data_entrada.data, tipo_defeito=form.tipo_defeito.data, status=form.status.data, problema_informado=form.problema_informado.data)
-        # db.session.add(registro)
-        # db.session.commit()
+        print("Validou")
+        registro_equipamento = Equipamento(nro_de_serie=form.nro_de_serie.data,
+                                           capacidade=form.capacidade.data,
+                                           lacre_entrada=form.lacre_entrada.data,
+                                           marca=form.marca.data,
+                                           modelo=form.modelo.data
+                                           )
+        registro_os = Os(data_entrada=form.data_entrada.data,
+                         tipo_defeito=form.tipo_defeito.data,
+                         status=form.status.data,
+                         problema_informado=form.problema_informado.data,
+                         )
+        registro_os.equipamento = registro_equipamento
+        cliente.oss.append(registro_os)
+        db.session.commit()
         flash("Ordem de serviço registrada com sucesso", "success")
         return redirect(url_for("home"))
     return render_template("new_so.html", title='Novo Ordem de Serviço', form=form)

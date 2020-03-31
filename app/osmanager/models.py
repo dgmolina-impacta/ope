@@ -74,7 +74,7 @@ class Os(db.Model):
     pecas = db.relationship("Peca", backref="os", lazy=True)
 
     def __repr__(self):
-        return f"OS('{self.numero}', '{self.status}', '{self.data_entrega}'"
+        return f"OS('{self.numero}', '{self.status}', '{self.data_entrada}'"
 
 
 class Orcamento(db.Model):
@@ -91,8 +91,8 @@ class Orcamento(db.Model):
 class Equipamento(db.Model):
     nro_de_serie = db.Column(db.String(20), nullable=True)
     capacidade = db.Column(db.Float, nullable=True)
-    lacre_entrada = db.Column(db.Boolean, nullable=False)
-    lacre_saida = db.Column(db.Boolean, nullable=True)
+    lacre_entrada = db.Column(db.String(3), nullable=False)
+    lacre_saida = db.Column(db.String(3), nullable=True)
     marca = db.Column(db.String(20), nullable=False)
     modelo = db.Column(db.String(50), nullable=False)
 
