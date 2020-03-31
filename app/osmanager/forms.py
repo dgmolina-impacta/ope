@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, TextAreaField, DecimalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from osmanager.models import User
 
@@ -23,12 +23,12 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
-            raise ValidationError('Esse nome de usuário já existi. Por favor, escolha outro.')
+            raise ValidationError('Esse nome de usuário já existe. Por favor, escolha outro.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            raise ValidationError('Esse email já existi. Por favor, escolha outro.')
+            raise ValidationError('Esse email já existe. Por favor, escolha outro.')
 
 
 class LoginForm(FlaskForm):
@@ -101,3 +101,34 @@ class ClientForm(FlaskForm):
                     validators=[DataRequired()])
 
     submit = SubmitField('Cadastrar')
+
+class SearchClientForm(FlaskForm):
+    opcao_busca = SelectField('Procurar por', choices=[("cpf", "CPF"), ("nome", "Nome")])
+    
+    valor_busca = StringField('', validators=[DataRequired(), Length(min=2, max=30)])
+
+    submit = SubmitField('Buscar')
+
+class NewSOForm(FlaskForm):
+    data_entrada = DateField('* Data de Entrada:', validators=[DataRequired()])
+
+    tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(), Length(max=50)])
+
+    status = SelectField("Status:", choices=[("aberta", "Aberta"), ("orcamento_aprovado", "Orçamento Aprovado"), ("finalizada", "Finalizada")])
+
+    problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(), Length(max=200)])
+
+    submit = SubmitField("Registrar")
+
+    # Equipamento
+    nro_de_serie = StringField("Número de Série:", validators=[Length(max=20)])
+    
+    capacidade = DecimalField("Capacidade:")
+
+    lacre_entrada = SelectField("* Lacre na entrada:", choices=[("sim", "Sim"), ("nao", "Não")])
+
+#    lacre_saida = SelectField("* Lacre na saída:", choices=[("sim", "Sim"), ("nao", "Não")])
+
+    marca = StringField("* Marca:", validators=[DataRequired(), Length(max=20)])
+
+    modelo = StringField("* Modelo:", validators=[DataRequired(), Length(max=50)])

@@ -1,0 +1,160 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Registrar Nova Ordem de Serviço</legend>
+                
+                <div class="row pl-2">
+                    <div class="form-group col-md-4">
+                        {{ form.data_entrada.label(class="bold-char form-control-label") }}
+
+                        {% if form.data_entrada.errors %}
+                            {{ form.data_entrada(class="datepicker form-control is-invalid", type="date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.data_entrada.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.data_entrada(class="datepicker form-control", type="date") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group col-md-8">
+                        {{ form.tipo_defeito.label(class="bold-char form-control-label") }}
+                        {% if form.tipo_defeito.errors %}
+                            {{ form.tipo_defeito(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.tipo_defeito.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.tipo_defeito(class="form-control") }}
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row pl-2">
+                    <div class="form-group col-md-4">
+                        {{ form.status.label(class="bold-char form-control-label") }}
+
+                        {% if form.status.errors %}
+                            {{ form.status(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.status.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.status(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group col-md-8">
+                        {{ form.problema_informado.label(class="bold-char form-control-label") }}
+                        {% if form.problema_informado.errors %}
+                            {{ form.problema_informado(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.problema_informado.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.problema_informado(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+            </fieldset>
+            
+            <fieldset class="form-group">
+                <legend class="mb-4">Informações do Equipamento</legend>
+                <div class="row pl-2">
+                    <div class="form-group col-md-4">
+                        {{ form.nro_de_serie.label(class="bold-char form-control-label") }}
+
+                        {% if form.nro_de_serie.errors %}
+                            {{ form.nro_de_serie(class="datepicker form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.nro_de_serie.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.nro_de_serie(class="datepicker form-control") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        {{ form.capacidade.label(class="bold-char form-control-label") }}
+                        {% if form.capacidade.errors %}
+                            {{ form.capacidade(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.capacidade.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.capacidade(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        {{ form.lacre_entrada.label(class="bold-char form-control-label") }}
+
+                        {% if form.lacre_entrada.errors %}
+                            {{ form.lacre_entrada(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.lacre_entrada.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.lacre_entrada(class="form-control") }}
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row pl-2">
+                    <div class="form-group col-md-8">
+                        {{ form.marca.label(class="bold-char form-control-label") }}
+
+                        {% if form.marca.errors %}
+                            {{ form.marca(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.marca.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.marca(class="form-control") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row pl-2">
+                    <div class="form-group col-md-8">
+                        {{ form.modelo.label(class="bold-char form-control-label") }}
+                        {% if form.modelo.errors %}
+                            {{ form.modelo(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.modelo.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.modelo(class="form-control") }}
+                        {% endif %}
+                    </div>
+                </div>
+            </fieldset>
+            
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info")}}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
