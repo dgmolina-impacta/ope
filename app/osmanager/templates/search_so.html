@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    <h2>Ordends de Serviço</h2>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Pesquisa</legend>
+            
+            <div class="form-group" >
+                <div class="row">
+                    <div class="col-5">
+                        {{ form.opcao_busca.label(class="form-control-label") }}
+                        {% if form.opcao_busca.errors %}
+                            {{ form.opcao_busca(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.opcao_busca.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.opcao_busca(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-5">
+                        {{ form.valor_busca.label(class="form-control-label") }}
+                        {% if form.valor_busca.errors %}
+                            {{ form.valor_busca(class="form-control form-control-lg is-invalid mt-2") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.valor_busca.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.valor_busca(class="form-control form-control-lg mt-2") }}
+                        {% endif %}
+                    </div>
+                    <div class="col-2 search-btn">
+                        {{ form.submit(class="btn btn-secondary")}}
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+    <table class="table table-striped">
+        <thead class="thead-gray">
+            <tr>
+            
+            <th scope="col">Numero</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">CPF</th>
+            <th scope='col'>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for os in oss.items %}
+                <tr>
+                    
+                    <td><a href="{{ url_for('view_so', numero=os.numero)}}">{{ os.numero }}</a></td>
+                    <td>{{ clientes[loop.index0].nome }}</td>
+                    <td>{{ clientes[loop.index0].cpf }}</td>
+                    <td>{{ os.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% for page_num in oss.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if oss.page == page_num %}
+          <a class="btn btn-info mb-4" {% if opcao_busca %}href="{{ url_for('search_so', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('search_so', page=page_num) }}"{% endif %}>{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" {% if opcao_busca %}href="{{ url_for('search_so', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('search_so', page=page_num) }}"{% endif %}>{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+{% endblock content %}

@@ -111,3 +111,12 @@ a.article-title:hover {
   display: inline-block;
   vertical-align: bottom;
 }
+
+.td-on-view {
+  text-align: right;
+}
+
+.btn-add-component {
+  border-color: #17a2b8;
+  border-width: thin;
+}

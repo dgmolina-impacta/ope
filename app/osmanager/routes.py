@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from osmanager import app, db, bcrypt
-from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm, ClientForm, SearchClientForm, NewSOForm
-from osmanager.models import User, Cliente, Os, Equipamento
+from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm, ClientForm, SearchClientForm, NewSOForm, SearchSOForm, AddComponentForm
+from osmanager.models import User, Cliente, Os, Equipamento, Peca
 from flask_login import login_user, current_user, logout_user, login_required
 
 os = {"numero": "xxxxx",
@@ -102,17 +102,26 @@ def search_client():
         valor_busca = request.args.get("valor_busca", None, type=str)
 
     if not (opcao_busca or valor_busca):
-        clientes = Cliente.query.order_by(Cliente.nome.asc()).paginate(page=page, per_page=per_page)
+        clientes = Cliente.query.order_by(Cliente.nome.asc()).paginate(
+                                                                      page=page,
+                                                                      per_page=per_page)
     else:
         if opcao_busca == "cpf":    
-            clientes = Cliente.query.filter_by(cpf=valor_busca).paginate(page=page, per_page=per_page)
+            clientes = Cliente.query.filter_by(cpf=valor_busca).paginate(
+                                                                        page=page,
+                                                                        per_page=per_page)
         else:
             clientes = Cliente.query.filter(db.text(f"nome LIKE '%{valor_busca}%'")).order_by(Cliente.nome.asc()).paginate(page=page, per_page=per_page)
 
         if not clientes.items:
             flash("Nenhum registro encontrado", "danger")
 
-    return render_template("search_client.html", title="Pesquisar Clientes", form=form, clientes=clientes, opcao_busca=opcao_busca, valor_busca=valor_busca)
+    return render_template(
+                          "search_client.html",
+                          title="Pesquisar Clientes",
+                          form=form, clientes=clientes,
+                          opcao_busca=opcao_busca,
+                          valor_busca=valor_busca)
 
 
 @app.route('/view/client/<id>', methods=['GET'])
@@ -147,3 +156,63 @@ def register_so(id):
         flash("Ordem de serviço registrada com sucesso", "success")
         return redirect(url_for("home"))
     return render_template("new_so.html", title='Novo Ordem de Serviço', form=form)
+
+
+@app.route('/search/so', methods=['GET', 'POST'])
+@login_required
+def search_so():
+    form = SearchSOForm()
+    page = request.args.get("page", 1, type=int)
+    per_page = 2
+    clientes = []
+
+    if form.validate_on_submit():
+        opcao_busca = form.opcao_busca.data
+        valor_busca = form.valor_busca.data
+        page = 1 # reseta numero da pagina ao pesquisar
+    else:
+        opcao_busca = request.args.get("opcao_busca", None, type=str)
+        valor_busca = request.args.get("valor_busca", None, type=str)
+
+    if not (opcao_busca or valor_busca):
+        oss = Os.query.order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
+        for os in oss.items:
+            clientes.append(Cliente.query.filter_by(id=os.id_cliente).first())
+    else:
+        if opcao_busca == "cpf":    
+            cliente = Cliente.query.filter_by(cpf=valor_busca).first()
+            oss = Os.query.filter_by(id_cliente=cliente.id).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
+            for os in oss.items:
+                clientes.append(Cliente.query.get(os.id_cliente))
+        else:
+            oss = Os.query.filter(db.text(f"numero LIKE '%{valor_busca}%'")).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
+            for os in oss.items:
+                clientes.append(Cliente.query.get(os.id_cliente))
+
+        if not oss.items:
+            flash("Nenhum registro encontrado", "danger")
+
+    return render_template(
+                          "search_so.html",
+                          title="Pesquisar Clientes",
+                          form=form, oss=oss,
+                          clientes=clientes,
+                          opcao_busca=opcao_busca,
+                          valor_busca=valor_busca)
+
+
+@app.route('/view/so/<numero>', methods=["GET", "POST"])
+def view_so(numero):
+    os = Os.query.get(numero)
+    orcamento = os.orcamento
+    equipamento = os.equipamento
+    pecas = os.pecas
+    cliente = Cliente.query.get(os.id_cliente)
+    form = AddComponentForm()
+
+    if form.validate_on_submit():
+        peca = Peca(marca=form.marca.data, nome=form.nome.data, valor_unitario=form.valor_unitario.data, quantidade=form.quantidade.data, numero=len(pecas)+1, numero_os=os.numero)
+        os.pecas.append(peca)
+        db.session.commit()
+        flash("Itens adicionados com sucessos", "success")
+    return render_template('view_so.html', title="Ordem de Serviço", os=os, cliente=cliente, equipamento=equipamento, pecas=pecas, orcamento=orcamento, form=form)

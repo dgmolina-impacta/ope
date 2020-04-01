@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, TextAreaField, DecimalField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, TextAreaField, DecimalField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from osmanager.models import User
 
@@ -109,12 +109,19 @@ class SearchClientForm(FlaskForm):
 
     submit = SubmitField('Buscar')
 
+class SearchSOForm(FlaskForm):
+    opcao_busca = SelectField('Procurar por', choices=[("cpf", "CPF"), ("numero_os", "Número da OS")])
+
+    valor_busca = StringField('', validators=[DataRequired(), Length(max=30)])
+
+    submit = SubmitField('Buscar')
+
 class NewSOForm(FlaskForm):
     data_entrada = DateField('* Data de Entrada:', validators=[DataRequired()])
 
     tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(), Length(max=50)])
 
-    status = SelectField("Status:", choices=[("aberta", "Aberta"), ("orcamento_aprovado", "Orçamento Aprovado"), ("finalizada", "Finalizada")])
+    status = SelectField("Status:", choices=[("Aberta", "Aberta"), ("Orçamento Aprovado", "Orçamento Aprovado"), ("Finalizada", "Finalizada")])
 
     problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(), Length(max=200)])
 
@@ -132,3 +139,15 @@ class NewSOForm(FlaskForm):
     marca = StringField("* Marca:", validators=[DataRequired(), Length(max=20)])
 
     modelo = StringField("* Modelo:", validators=[DataRequired(), Length(max=50)])
+
+
+class AddComponentForm(FlaskForm):
+    marca = StringField("* Marca:", validators=[DataRequired(), Length(max=30)])
+
+    nome = StringField("* Modelo:", validators=[DataRequired(), Length(max=30)])
+
+    valor_unitario = DecimalField("** Valor Unitário:", validators=[DataRequired()])
+
+    quantidade = IntegerField("* Quantidade:", validators=[DataRequired()])
+
+    submit = SubmitField("Adicionar")
