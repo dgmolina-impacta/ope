@@ -215,4 +215,6 @@ def view_so(numero):
         os.pecas.append(peca)
         db.session.commit()
         flash("Itens adicionados com sucessos", "success")
+    elif form.is_submitted():
+        flash("Erro ao adicionar itens à Ordem de Serviço", "danger")
     return render_template('view_so.html', title="Ordem de Serviço", os=os, cliente=cliente, equipamento=equipamento, pecas=pecas, orcamento=orcamento, form=form)
