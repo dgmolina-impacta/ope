@@ -120,3 +120,7 @@ a.article-title:hover {
   border-color: #17a2b8;
   border-width: thin;
 }
+
+.text-white {
+  color: #ffffff;
+}

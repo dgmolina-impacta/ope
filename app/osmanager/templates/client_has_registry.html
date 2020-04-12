@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    <h2 class="border-bottom pb-2">Nova Ordem de Serviço</h2>
+    <div class="col-12 d-flex justify-content-center">
+        <h3 class="mt-4">O cliente já possui registro no sistema?</h3>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 d-flex justify-content-center">
+            <h4>Sim</h4>
+        </div>
+        <div class="col-md-4 d-flex justify-content-center">
+            <h4>Não</h4>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 d-flex justify-content-center">
+            <a class="btn btn-info bold-char text-white" href="{{ url_for('search_client') }}">Pesquisar cliente</a>
+        </div>
+        <div class="col-md-4 d-flex justify-content-center">
+            <a class="btn btn-info bold-char text-white" href="{{ url_for('full_register') }}">Cadastro completo</a>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    
+    
+
+{% endblock content %}
