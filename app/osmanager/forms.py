@@ -153,41 +153,47 @@ class AddComponentForm(FlaskForm):
     submit = SubmitField("Adicionar")
 
 
+class CheckCPFForm(FlaskForm):
+    check_cpf_sub = SubmitField("Consultar")
+
+    check_cpf_field = StringField('CPF:',
+                                  validators=[DataRequired(), Length(min=11, max=11)])
+
 class FullRegisterForm(FlaskForm):
     # Cliente
-    cpf = StringField('CPF:', 
-                    validators=[DataRequired(), Length(min=11, max=11)])
-    
-    name = StringField('Nome:', 
-                    validators=[DataRequired(), Length(min=2, max=100)])
-    
+    cpf = StringField('CPF:',
+                      validators=[DataRequired(), Length(min=11, max=11)])
+
+    name = StringField('Nome:',
+                       validators=[DataRequired(), Length(min=2, max=100)])
+
     phone = StringField('Tel. Fixo:')
 
-    mobile = StringField('Celular:', 
-                    validators=[DataRequired()])
+    mobile = StringField('Celular:',
+                         validators=[DataRequired()])
 
-    email = StringField('Email:', 
-                    validators=[DataRequired(), Email()])
+    email = StringField('Email:',
+                        validators=[DataRequired(), Email()])
 
-    cep = StringField('CEP:', 
-                    validators=[DataRequired()])
-    
-    address = StringField('Endereço:', 
-                    validators=[DataRequired()])
+    cep = StringField('CEP:',
+                      validators=[DataRequired()])
 
-    number = StringField('Número:', 
-                    validators=[DataRequired()])
-    
+    address = StringField('Endereço:',
+                          validators=[DataRequired()])
+
+    number = StringField('Número:',
+                         validators=[DataRequired()])
+
     complement = StringField('Complemento:')
 
-    neighborhood = StringField ('Bairro:',
-                    validators=[DataRequired()])
+    neighborhood = StringField('Bairro:',
+                               validators=[DataRequired()])
 
-    city = StringField('Cidade:', 
-                    validators=[DataRequired()])
-    
-    state = StringField('Estado:', 
-                    validators=[DataRequired()])
+    city = StringField('Cidade:',
+                       validators=[DataRequired()])
+
+    state = StringField('Estado:',
+                        validators=[DataRequired()])
 
     # OS
     data_entrada = DateField('* Data de Entrada:', validators=[DataRequired()])

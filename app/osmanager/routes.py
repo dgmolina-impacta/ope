@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from osmanager import app, db, bcrypt
-from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm, ClientForm, SearchClientForm, NewSOForm, SearchSOForm, AddComponentForm, FullRegisterForm
+from osmanager.forms import RegistrationForm, LoginForm, UpdateAccountForm, ClientForm, SearchClientForm, NewSOForm, SearchSOForm, AddComponentForm, FullRegisterForm, CheckCPFForm
 from osmanager.models import User, Cliente, Os, Equipamento, Peca
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -131,36 +131,46 @@ def view_client(id):
     return render_template('view_client.html', title="Dados do Cliente", cliente=cliente)
 
 
-@app.route('/register/check', methods=['GET'])
+@app.route('/register/check', methods=['GET', 'POST'])
 @login_required
 def check_register_type():
-    return render_template('client_has_registry.html', title="Nova Ordem de Serviço")
+    form = CheckCPFForm()
+    if form.validate_on_submit():
+        cliente = Cliente.query.filter_by(cpf=form.check_cpf_field.data).first()
+
+        if cliente:
+            return redirect(url_for('view_client', id=cliente.id))
+        else:
+            flash("Não há nenhum cliente registrado com este CPF.", "danger")
+
+    return render_template('client_has_registry.html', title="Nova Ordem de Serviço", form=form)
 
 
 @app.route('/register/all', methods=['GET', 'POST'])
 @login_required
 def full_register():
     form = FullRegisterForm()
+    
     if form.validate_on_submit():
         registro_cliente = Cliente(cpf=form.cpf.data, nome=form.name.data, 
-                                   telefone=form.phone.data, 
-                                   celular=form.mobile.data, email=form.email.data,
-                                   cep=form.cep.data, endereco=form.address.data,
-                                   numero=form.number.data, complemento=form.complement.data,
-                                   bairro=form.neighborhood.data, cidade=form.city.data,
-                                   estado=form.state.data
-                                   )
+                                telefone=form.phone.data, 
+                                celular=form.mobile.data, email=form.email.data,
+                                cep=form.cep.data, endereco=form.address.data,
+                                numero=form.number.data, complemento=form.complement.data,
+                                bairro=form.neighborhood.data, cidade=form.city.data,
+                                estado=form.state.data
+                                )
         registro_equipamento = Equipamento(nro_de_serie=form.nro_de_serie.data,
-                                           capacidade=form.capacidade.data,
-                                           lacre_entrada=form.lacre_entrada.data,
-                                           marca=form.marca.data,
-                                           modelo=form.modelo.data
-                                           )
+                                        capacidade=form.capacidade.data,
+                                        lacre_entrada=form.lacre_entrada.data,
+                                        marca=form.marca.data,
+                                        modelo=form.modelo.data
+                                        )
         registro_os = Os(data_entrada=form.data_entrada.data,
-                         tipo_defeito=form.tipo_defeito.data,
-                         status=form.status.data,
-                         problema_informado=form.problema_informado.data,
-                         )
+                        tipo_defeito=form.tipo_defeito.data,
+                        status=form.status.data,
+                        problema_informado=form.problema_informado.data,
+                        )
         registro_os.equipamento = registro_equipamento
         registro_cliente.oss.append(registro_os)
         db.session.add(registro_cliente)

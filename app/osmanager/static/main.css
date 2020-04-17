@@ -124,3 +124,7 @@ a.article-title:hover {
 .text-white {
   color: #ffffff;
 }
+
+.bigger-words {
+  font-size: x-large;
+}
