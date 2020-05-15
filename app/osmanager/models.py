@@ -103,13 +103,13 @@ class Equipamento(db.Model):
 
 
 class Peca(db.Model):
+    numero = db.Column(db.Integer, primary_key=True)
     quantidade = db.Column(db.Integer, nullable=False)
     descricao = db.Column(db.String(120), nullable=True)
     marca = db.Column(db.String(30), nullable=False)
     nome = db.Column(db.String(30), nullable=False)
     valor_unitario = db.Column(db.Float, nullable=False)
 
-    numero = db.Column(db.Integer, primary_key=True)
     numero_os = db.Column(db.Integer, db.ForeignKey("os.numero"), primary_key=True)
 
     def __repr__(self):

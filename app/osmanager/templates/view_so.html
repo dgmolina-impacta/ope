@@ -1,0 +1,291 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    <h2>Ordem de Serviço</h2>
+    <article class="media content-section">
+        <div class="media-body">
+            <h5 class="mt-2 pb-2">Cliente</h5>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Nome</th>
+                            <td class="td-on-view">{{ cliente.nome or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td class="td-on-view">{{ cliente.email or "" }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr class="border-bottom">
+                            <th scope="row">Telefone</th>
+                            <td class="td-on-view">{{ cliente.telefone or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h5 class="mt-2 pb-2">Serviço</h5>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Numero</th>
+                            <td class="td-on-view">{{ os.numero or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Data de entrada</th>
+                            <td class="td-on-view">{{ os.data_entrada or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Data de saída</th>
+                            <td class="td-on-view" colspan="2">{{ os.data_saida or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td class="td-on-view">{{ os.status or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tipo do defeito</th>
+                            <td class="td-on-view">{{ os.tipo_defeito or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Garantia</th>
+                            <td class="td-on-view">{{ os.garantia or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Problema informado</th>
+                            <td class="td-on-view">{{ os.problema_informado or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Valor das peças</th>
+                            <td class="td-on-view">{{ os.valor_produtos or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Desconto</th>
+                            <td class="td-on-view" colspan="2">{{ os.desconto or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Valor total</th>
+                            <td class="td-on-view" colspan="2">{{ os.valor_total or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Problema constatado</th>
+                            <td class="td-on-view">{{ os.problema_constatado or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Mão de obra</th>
+                            <td class="td-on-view">{{ os.valor_servico or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Forma de pagamento</th>
+                            <td class="td-on-view" colspan="2">{{ os.tipo_pagamento or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6 d-flex align-items-end justify-content-end">
+                    <a class="bold-char btn btn-outline-danger" href="#">Alterar Dados do Cliente</a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+    <article class="media content-section">
+        <div class="media-body"> 
+            <h5 class="mt-2 pb-2">Equipamento</h5>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Número de série</th>
+                            <td class="td-on-view">{{ equipamento.nro_de_serie or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Marca</th>
+                            <td class="td-on-view">{{ equipamento.marca or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Modelo</th>
+                            <td class="td-on-view">{{ equipamento.modelo or "" }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Capacidade</th>
+                            <td class="td-on-view">{{ equipamento.capacidade or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Lacre na entrada</th>
+                            <td class="td-on-view">{{ equipamento.lacre_entrada or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Lacre na saida</th>
+                            <td class="td-on-view">{{ equipamento.lacre_saida or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="media content-section">
+        <div class="media-body"> 
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mt-2 mb-3">Peças</h5>
+                </div>
+            </div>
+
+            <div class="row pt-2">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead class="thead-gray">
+                            <tr>
+                            
+                            <th class="bold-char" scope="col">Numero</th>
+                            <th class="bold-char" scope="col">Marca</th>
+                            <th class="bold-char" scope="col">Nome</th>
+                            <th class="bold-char" scope='col'>Valor Unitário</th>
+                            <th class="bold-char" scope="col">Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for peca in pecas %}
+                                <tr>
+                                    
+                                    <td>{{ peca.numero }}</td>
+                                    <td>{{ peca.marca }}</td>
+                                    <td>{{ peca.nome }}</td>
+                                    <td>{{ peca.valor_unitario }}</td>
+                                    <td>{{ peca.quantidade }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 pb-2">Adicionar peça</legend>
+                    
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form.marca.label(class="form-control-label") }}
+            
+                                {% if form.marca.errors %}
+                                    {{ form.marca(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.marca.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.marca(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {{ form.nome.label(class="form-control-label") }}
+            
+                                {% if form.nome.errors %}
+                                    {{ form.nome(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.nome.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.nome(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                {{ form.quantidade.label(class="form-control-label") }}
+            
+                                {% if form.quantidade.errors %}
+                                    {{ form.quantidade(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.quantidade.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.quantidade(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                {{ form.valor_unitario.label(class="form-control-label") }}
+            
+                                {% if form.valor_unitario.errors %}
+                                    {{ form.valor_unitario(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.valor_unitario.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.valor_unitario(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end justify-content-center">
+                            <div class="form-group">
+                                {{ form.submit(class="btn-lg btn-add-component btn-outline-info")}}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <p class="text-muted mb-1">* &nbspCampo obrigatório</p>
+            <p class="text-muted">** As casas decimais no campo "Valor Unitário", são separadas por ponto (.)</p>
+        </div>
+    </article>
+    
+
+{% endblock content %}

@@ -2,15 +2,28 @@
 
 
 {% block content %}
-    <h2>Ordens de Serviço</h2>
+    <div class="container mb-3">
+        <h2>Bem Vindo!</h2>
+    </div>
     <article class="media content-section">
         <div class="media-body">
+            {% if current_user.is_authenticated %}
             <div class="article-metadata">
-                <a class="mr-2" href="#">{{ os.numero }}</a>
-                <small class="text-muted">{{ os.cliente }}</small>
+                <h4>Gerenciador de Ordens de Serviço</h4>
             </div>
-            <h4 class="article-title" >{{ os.equipamento }}</h4>
-            <p class="article-content">{{ os.status }}</p>
+            <div class="mt-3">
+                <p>A principais funcionalidades da ferramenta podem ser acessadas no menu ao lado.</p>
+            </div>
+            {% else %}
+            <div class="article-metadata">
+                <h4>Por favor</h4>
+            </div>
+            <div class="mt-3">
+                <p>Realize o <strong>login</strong> para utilizar a ferramenta, ou <strong>entre em contato</strong> com a R.A Balanças pelo telefone (11)xxxx-xxxx para obter um link de acompanhamento da sua ordem de serviço.</p>
+                <p>Obrigado!</p>
+            </div>
+            {% endif %}
+            
         </div>
     </article>
 

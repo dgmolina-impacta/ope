@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+    <h2 class="border-bottom pb-2">Nova Ordem de Serviço</h2>
+    <div class="col-12">
+        <h3 class="mt-4">O cliente já possui registro no sistema?</h3>
+    </div>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="row mt-4">
+            <div class="col-md-1"></div>
+            <div class="form-group col-md-1">
+                {{ form.check_cpf_field.label(class="form-control-label bigger-words") }}
+            </div>
+            <div class="form-group col-md-4">
+                {% if form.check_cpf_field.errors %}
+                    {{ form.check_cpf_field(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.check_cpf_field.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.check_cpf_field(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group col-5 ">
+                {{ form.check_cpf_sub(class="btn btn-outline-info mt-1") }}
+            </div>
+        </div>
+    </form>
+    
+    <div class="col-md-12 mt-4">
+        <h3>Ou acesse a página de cadastro completo</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 d-flex justify-content-center">
+            <a class="btn-lg btn-info bold-char text-white mt-4" href="{{ url_for('ordens.full_register') }}">Cadastro completo</a>
+        </div>
+    </div>
+    
+    
+
+{% endblock content %}

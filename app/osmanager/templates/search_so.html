@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <h2>Clientes</h2>
+    <h2>Ordends de Serviço</h2>
 
     <form method="POST" action="">
         {{ form.hidden_tag() }}
@@ -52,29 +52,31 @@
         <thead class="thead-gray">
             <tr>
             
-            <th scope="col">Nome</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telefone</th>
+            <th scope="col">Numero</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">CPF</th>
+            <th scope='col'>Status</th>
             </tr>
         </thead>
         <tbody>
-            {% for cliente in clientes.items %}
+            {% for os in oss.items %}
                 <tr>
                     
-                    <td><a href="{{url_for('clientes.view_client', id=cliente.id)}}">{{ cliente.nome }}</a></td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.telefone }}</td>
+                    <td><a href="{{ url_for('ordens.view_so', numero=os.numero)}}">{{ os.numero }}</a></td>
+                    <td>{{ clientes[loop.index0].nome }}</td>
+                    <td>{{ clientes[loop.index0].cpf }}</td>
+                    <td>{{ os.status }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    {% for page_num in clientes.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% for page_num in oss.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
-        {% if clientes.page == page_num %}
-          <a class="btn btn-info mb-4" {% if opcao_busca %}href="{{ url_for('clientes.search_client', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('clientes.search_client', page=page_num) }}"{% endif %}>{{ page_num }}</a>
+        {% if oss.page == page_num %}
+          <a class="btn btn-info mb-4" {% if opcao_busca %}href="{{ url_for('ordens.search_so', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('ordens.search_so', page=page_num) }}"{% endif %}>{{ page_num }}</a>
         {% else %}
-          <a class="btn btn-outline-info mb-4" {% if opcao_busca %}href="{{ url_for('clientes.search_client', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('clientes.search_client', page=page_num) }}"{% endif %}>{{ page_num }}</a>
+          <a class="btn btn-outline-info mb-4" {% if opcao_busca %}href="{{ url_for('ordens.search_so', page=page_num, opcao_busca=opcao_busca, valor_busca=valor_busca) }}"{% else %}href="{{ url_for('ordens.search_so', page=page_num) }}"{% endif %}>{{ page_num }}</a>
         {% endif %}
       {% else %}
         ...
