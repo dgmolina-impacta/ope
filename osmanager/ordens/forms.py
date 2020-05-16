@@ -26,7 +26,7 @@ class NewSOForm(FlaskForm):
     # Equipamento
     nro_de_serie = StringField("Número de Série:", validators=[Length(max=20)])
     
-    capacidade = DecimalField("Capacidade:")
+    capacidade = DecimalField("Capacidade (Quilogramas):")
 
     lacre_entrada = SelectField("* Lacre na entrada:", choices=[("sim", "Sim"), ("nao", "Não")])
 
@@ -40,7 +40,7 @@ class NewSOForm(FlaskForm):
 class AddComponentForm(FlaskForm):
     marca = StringField("* Marca:", validators=[DataRequired(), Length(max=30)])
 
-    nome = StringField("* Modelo:", validators=[DataRequired(), Length(max=30)])
+    nome = StringField("* Nome:", validators=[DataRequired(), Length(max=30)])
 
     valor_unitario = DecimalField("** Valor Unitário:", validators=[DataRequired()])
 

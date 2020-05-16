@@ -89,6 +89,10 @@ def view_so(numero):
     if form.validate_on_submit():
         peca = Peca(marca=form.marca.data, nome=form.nome.data, valor_unitario=form.valor_unitario.data, quantidade=form.quantidade.data, numero=len(pecas)+1, numero_os=os.numero)
         os.pecas.append(peca)
+        valor_das_pecas = 0
+        for peca_da_os in os.pecas:
+            valor_das_pecas = valor_das_pecas + float(peca_da_os.quantidade * peca_da_os.valor_unitario)
+        os.valor_produtos = valor_das_pecas
         db.session.commit()
         flash("Itens adicionados com sucessos", "success")
     elif form.is_submitted():
