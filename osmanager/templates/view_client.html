@@ -105,7 +105,33 @@
                     <a class="bold-char btn btn-outline-info" href="{{ url_for('ordens.register_so', id=cliente.id) }}">Nova Ordem de Serviço</a>
                 </div>
             </div>
-            <p class="text-muted mb-1">Implementar lista de OSs</p>
+            <div class="row pt-4">
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead class="thead-gray">
+                            <tr>
+                            
+                            <th class="bold-char" scope="col">Número</th>
+                            <th class="bold-char" scope="col">Data de Entrada</th>
+                            <th class="bold-char" scope="col">Data de Saída</th>
+                            <th class="bold-char" scope='col'>Valor Total</th>
+                            <th class="bold-char" scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for os in oss.items %}
+                                <tr>
+                                    <td class="text-center"><a href="{{ url_for('ordens.view_so', numero=os.numero) }}">{{ os.numero }}</td></a>
+                                    <td class="pl-3">{{ os.data_entrada }}</td>
+                                    <td class="pl-3">{{ os.data_saida or "Sem data" }}</td>
+                                    <td>{{ os.valor_total or "Sem valor" }}</td>
+                                    <td>{{ os.status }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </article>
     

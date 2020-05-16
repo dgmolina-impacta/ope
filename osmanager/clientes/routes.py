@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from osmanager import db
 from osmanager.clientes.forms import ClientForm, SearchClientForm, CheckCPFForm
-from osmanager.models import Cliente
+from osmanager.models import Cliente, Os
 from flask_login import login_required
 
 
@@ -68,7 +68,8 @@ def search_client():
 @login_required
 def view_client(id):
     cliente = Cliente.query.get(id)
-    return render_template('view_client.html', title="Dados do Cliente", cliente=cliente)
+    oss = Os.query.filter_by(id_cliente=cliente.id).order_by(Os.data_entrada.desc()).paginate(page=1, per_page=10)
+    return render_template('view_client.html', title="Dados do Cliente", cliente=cliente, oss=oss)
 
 @clientes.route('/register/check', methods=['GET', 'POST'])
 @login_required
