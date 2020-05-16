@@ -61,15 +61,14 @@
           <div class="col-md-4">
               {% if current_user.is_authenticated %}
             <div class="content-section">
-              <h3>Navegação</h3>
-              <p class='text-muted'>Qualquer informação que quisermos colocar aqui.
-                <ul class="list-group">
+              <h3 class="pb-2">Navegação</h3>
+                <ul class="list-group my-3">
                   <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{ url_for('clientes.check_register_type') }}">Nova Ordem de Serviço</a></li>
                   <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{ url_for('ordens.search_so') }}">Pesquisar Ordens de Serviço</a></li>
                   <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{ url_for('clientes.register_client') }}">Cadastro de Cliente</a></li>
                   <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{ url_for('clientes.search_client') }}">Pesquisar Cliente</a></li>
                 </ul>
-              </p>
+
               <!-- Colocar a alternativa deslogada-->
             </div>  
             {% else %}
