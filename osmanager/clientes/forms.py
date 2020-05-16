@@ -54,3 +54,34 @@ class CheckCPFForm(FlaskForm):
 
     check_cpf_field = StringField('CPF:',
                                   validators=[DataRequired(), Length(min=11, max=11)])
+
+class UpdateClientForm(FlaskForm):
+    phone = StringField('Telefone')
+
+    mobile = StringField('Celular', 
+                         validators=[DataRequired()])
+
+    email = StringField('Email', 
+                        validators=[DataRequired(), Email()])
+
+    cep = StringField('CEP', 
+                      validators=[DataRequired()])
+
+    address = StringField('Endereço', 
+                          validators=[DataRequired()])
+
+    number = StringField('Número', 
+                         validators=[DataRequired()])
+    
+    complement = StringField('Complemento')
+
+    neighborhood = StringField('Bairro',
+                               validators=[DataRequired()])
+
+    city = StringField('Cidade', 
+                       validators=[DataRequired()])
+    
+    state = StringField('Estado', 
+                        validators=[DataRequired()])
+
+    submit = SubmitField('Atualizar')
