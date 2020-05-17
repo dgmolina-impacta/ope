@@ -91,16 +91,16 @@ def update_client(id):
         flash('O cadastro foi atualizado com sucesso!', 'success')
         return redirect(url_for('clientes.view_client', id=id))
     elif request.method == 'GET':
-        form.phone.data == cliente.telefone
-        form.mobile.data == cliente.celular
-        form.email.data == cliente.email
-        form.cep.data == cliente.cep
-        form.city.data == cliente.cidade
-        form.state.data == cliente.estado
-        form.neighborhood.data == cliente.bairro
-        form.address.data == cliente.endereco
-        form.number.data == cliente.numero
-        form.complement.data == cliente.complemento
+        form.phone.data = cliente.telefone
+        form.mobile.data = cliente.celular
+        form.email.data = cliente.email
+        form.cep.data = cliente.cep
+        form.city.data = cliente.cidade
+        form.state.data = cliente.estado
+        form.neighborhood.data = cliente.bairro
+        form.address.data = cliente.endereco
+        form.number.data = cliente.numero
+        form.complement.data = cliente.complemento
     return render_template('update_client.html', title="Alterar Dados do Cliente", form=form, cliente=cliente)
 
 @clientes.route('/register/check', methods=['GET', 'POST'])

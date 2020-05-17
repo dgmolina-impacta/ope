@@ -2,77 +2,37 @@
 {% block content %}
     <div class="content-section">
 
-        <h5 class="mt-2 pb-2">Cliente</h5>
-        <div class="row">
-            <div class="col-6">
-                <table class="table table-borderless">
-                    <tbody>
-                    <tr>
-                        <th scope="row">Nome</th>
-                        <td class="td-on-view">{{ cliente.nome or "" }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Email</th>
-                        <td class="td-on-view">{{ cliente.email or "" }}</td>
-                    </tr>
-                </table>
+        <h4 class="mt-2 pb-1">Cliente</h4>
+        <hr>
+        <div class="row text-lg pl-3">
+            <div class="col-md-6">
+                <strong>Nome</strong>
+                <p class="py-1">{{ cliente.nome }}</p>
+                <strong>Email</strong>
+                <p class="py-1">{{ cliente.email }}</p>
             </div>
-            <div class="col-6">
-                <table class="table table-borderless">
-                    <tbody>
-                    <tr class="border-bottom">
-                        <th scope="row">Telefone</th>
-                        <td class="td-on-view">{{ cliente.telefone or "" }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-6">
+                <strong>Telefone</strong>
+                <p class="py-1">{{ cliente.telefone }}</p>
             </div>
         </div>
-        <h5 class="mt-2 pb-2">Ordem de Serviço</h5>
-        <div class="row">
-            <div class="col-6">
-                <table class="table table-borderless">
-                    <tbody>
-                    <tr>
-                        <th scope="row">Numero</th>
-                        <td class="td-on-view">{{ os.numero or "" }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Data de entrada</th>
-                        <td class="td-on-view">{{ os.data_entrada or "" }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+        <h4 class="mt-2 pb-1">Ordem de Serviço</h4>
+        <hr>
+        <div class="row text-lg pl-3">
+            <div class="col-md-6">
+                <strong>Número da OS</strong>
+                <p class="py-1">{{ os.numero }}</p>
+                <strong>Data de entrada</strong>
+                <p class="py-1">{{ os.data_entrada }}</p>
             </div>
-
-            <div class="col-6">
-                <table class="table table-borderless">
-                    <tbody>
-                    <tr>
-                        <th scope="row">Tipo de defeito</th>
-                        <td class="td-on-view">{{ os.tipo_defeito or "" }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-borderless">
-                    <tbody>
-                    <tr>
-                        <th scope="row">Problema Informado</th>
-                        <td class="td-on-view" colspan="2">{{ os.problema_informado or "" }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-6">
+                <strong>Tipo de defeito</strong>
+                <p class="py-1">{{ os.tipo_defeito }}</p>
+                <strong>Problema informado</strong>
+                <p class="py-1">{{ os.problema_informado or "" }}</p>
             </div>
         </div>
         
-
-
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -97,14 +57,14 @@
                     <div class="form-group col-md-8">
                         {{ form.problema_constatado.label(class="bold-char form-control-label") }}
                         {% if form.problema_constatado.errors %}
-                            {{ form.problema_constatado(class="form-control form-control-lg is-invalid") }}
+                            {{ form.problema_constatado(class="form-control is-invalid") }}
                             <div class="invalid-feedback">
                                 {% for error in form.problema_constatado.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.problema_constatado(class="form-control form-control-lg") }}
+                            {{ form.problema_constatado(class="form-control") }}
                         {% endif %}
                     </div>
                 </div>
@@ -139,13 +99,14 @@
                         {% endif %}
                     </div>
 
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6 pr-4 pt-3 d-flex align-items-end justify-content-end">
+                        {{ form.submit(class="btn btn-outline-info btn-lg")}}
+                    </div>
+
                 </div>
 
             </fieldset>
-            
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info")}}
-            </div>
         </form>
     </div>
 {% endblock content %}

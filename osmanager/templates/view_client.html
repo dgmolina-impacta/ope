@@ -5,81 +5,44 @@
     <h2>Dados do Cliente</h2>
     <article class="media content-section">
         <div class="media-body">
-            <h5 class="mt-2">Dados Pessoais</h5>
-            <div class="row">
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Nome</th>
-                            <td class="td-on-view">{{ cliente.nome }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">CPF</th>
-                            <td class="td-on-view">{{ cliente.cpf }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Email</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.email }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <h4 class="mt-2 pb-1">Dados Pessoais</h4>
+            <hr>
+            <div class="row text-lg pl-3">
+                <div class="col-md-6">
+                    <strong>Nome</strong>
+                    <p class="py-1">{{ cliente.nome }}</p>
+                    <strong>CPF</strong>
+                    <p class="py-1">{{ cliente.cpf }}</p>
+                    <strong>Email</strong>
+                    <p class="py-1">{{ cliente.email }}</p>
                 </div>
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Telefone</th>
-                            <td class="td-on-view">{{ cliente.telefone }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Celular</th>
-                            <td class="td-on-view">{{ cliente.celular }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-6">
+                    <strong>Telefone</strong>
+                    <p class="py-1">{{ cliente.telefone }}</p>
+                    <strong>Celular</strong>
+                    <p class="py-1">{{ cliente.celular }}</p>
                 </div>
             </div>
-            <h5 class="mt-2">Endereço</h5>
-            <div class="row">
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">CEP</th>
-                            <td class="td-on-view">{{ cliente.cep }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Estado</th>
-                            <td class="td-on-view">{{ cliente.estado }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Rua</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.endereco }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Complemento</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.complemento }}</td>
-                        </tr>
-                    </table>
+            <h4 class="mt-2 pb-1">Endereço</h4>
+            <hr>
+            <div class="row text-lg pl-3">
+                <div class="col-md-6">
+                    <strong>CEP</strong>
+                    <p class="py-1">{{ cliente.cep }}</p>
+                    <strong>Estado</strong>
+                    <p class="py-1">{{ cliente.estado }}</p>
+                    <strong>Rua</strong>
+                    <p class="py-1">{{ cliente.endereco }}</p>
+                    <strong>Complemento</strong>
+                    <p class="py-1">{{ cliente.complemento }}</p>
                 </div>
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Cidade</th>
-                            <td class="td-on-view">{{ cliente.cidade }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Bairro</th>
-                            <td class="td-on-view">{{ cliente.bairro }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Numero</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.numero }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-6">
+                    <strong>Cidade</strong>
+                    <p class="py-1">{{ cliente.cidade }}</p>
+                    <strong>Bairro</strong>
+                    <p class="py-1">{{ cliente.bairro }}</p>
+                    <strong>Número</strong>
+                    <p class="py-1">{{ cliente.numero }}</p>
                 </div>
             </div>
             <div class="row">

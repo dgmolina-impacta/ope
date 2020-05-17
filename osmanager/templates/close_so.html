@@ -4,102 +4,65 @@
     <h2>Finalizar Ordem de Serviço</h2>
     <div class="content-section">
 
-        <h5 class="mt-2 pb-2">Cliente</h5>
-            <div class="row">
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Nome</th>
-                            <td class="td-on-view">{{ cliente.nome or "" }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Email</th>
-                            <td class="td-on-view">{{ cliente.email or "" }}</td>
-                        </tr>
-                    </table>
+        <h4 class="mt-2 pb-1">Cliente</h4>
+            <hr>
+            <div class="row text-lg pl-3">
+                <div class="col-md-6">
+                    <strong>Nome</strong>
+                    <p class="py-1">{{ cliente.nome }}</p>
+                    <strong>Email</strong>
+                    <p class="py-1">{{ cliente.email }}</p>
                 </div>
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr class="border-bottom">
-                            <th scope="row">Telefone</th>
-                            <td class="td-on-view">{{ cliente.telefone or "" }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-6">
+                    <strong>Telefone</strong>
+                    <p class="py-1">{{ cliente.telefone }}</p>
                 </div>
             </div>
-            <h5 class="mt-2 pb-2">Serviço</h5>
-            <div class="row">
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Numero</th>
-                            <td class="td-on-view">{{ os.numero or "" }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Data de entrada</th>
-                            <td class="td-on-view">{{ os.data_entrada or "" }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Data de saída</th>
-                            <td class="td-on-view" colspan="2">{{ os.data_saida or "" }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <h4 class="mt-2 pb-1">Serviço</h4>
+            <hr>
+            <div class="row text-lg pl-3">
+                <div class="col-md-6">
+                    <strong>Número da OS</strong>
+                    <p class="py-1">{{ os.numero or "" }}</p>
+                    <strong>Data de Entrada</strong>
+                    <p class="py-1">{{ os.data_entrada or "" }}</p>
+                    <strong>Data de Saída</strong>
+                    <p class="py-1">{{ os.data_saida or "" }}</p>
+
                 </div>
-                <div class="col-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Status</th>
-                            <td class="td-on-view">{{ os.status or "" }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tipo do defeito</th>
-                            <td class="td-on-view">{{ os.tipo_defeito or "" }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Garantia</th>
-                            <td class="td-on-view">{{ os.garantia or "" }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-6">
+                    <strong>Status</strong>
+                    <p class="py-1">{{ os.status or "" }}</p>
+                    <strong>Tipo de defeito</strong>
+                    <p class="py-1">{{ os.tipo_defeito or "" }}</p>
+                    <strong>Garantia</strong>
+                    <p class="py-1">{{ os.garantia or "" }}</p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-lg py-4 pl-3">
                 <div class="col-12">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Problema constatado</th>
-                            <td class="td-on-view">{{ os.problema_constatado or "" }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Problema informado</th>
-                            <td class="td-on-view">{{ os.problema_informado or "" }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <strong>Problema constatado</strong>
+                    <p class="pl-2 py-1">{{ os.problema_constatado or "" }}</p>
+                    <strong>Problema informado</strong>
+                    <p class="pl-2 py-1">{{ os.problema_informado or "" }}</p>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-6">
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
                                 <th scope="row">Valor das peças</th>
-                                <td class="td-on-view">{{ os.valor_produtos or "" }}</td>
+                                <td class="td-on-view">R$ {{ os.valor_produtos or "" }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Desconto</th>
-                                <td class="td-on-view" colspan="2">{{ os.desconto or "" }}</td>
+                                <td class="td-on-view" colspan="2">R$ {{ os.desconto or "" }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Valor total</th>
-                                <td class="td-on-view" colspan="2">{{ os.valor_total or "" }}</td>
+                                <td class="td-on-view" colspan="2">R$ {{ os.valor_total or "" }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -109,7 +72,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Mão de obra</th>
-                                <td class="td-on-view">{{ os.valor_servicos or "" }}</td>
+                                <td class="td-on-view">R$ {{ os.valor_servicos or "" }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Forma de pagamento</th>
@@ -119,8 +82,6 @@
                     </table>
                 </div>
             </div>
-        
-
 
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -146,14 +107,14 @@
                     <div class="form-group col-md-8">
                         {{ form.problema_constatado.label(class="bold-char form-control-label") }}
                         {% if form.problema_constatado.errors %}
-                            {{ form.problema_constatado(class="form-control form-control-lg is-invalid") }}
+                            {{ form.problema_constatado(class="form-control is-invalid") }}
                             <div class="invalid-feedback">
                                 {% for error in form.problema_constatado.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.problema_constatado(class="form-control form-control-lg") }}
+                            {{ form.problema_constatado(class="form-control") }}
                         {% endif %}
                     </div>
                 </div>
@@ -241,13 +202,14 @@
                         {% endif %}
                     </div>
 
+                    <div class="col-md-6 pr-4 pt-4 d-flex align-items-end justify-content-end">
+                        {{ form.submit(class="btn btn-outline-info btn-lg")}}
+                    </div>
+
                 </div>
 
             </fieldset>
             
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info")}}
-            </div>
         </form>
     </div>
 {% endblock content %}

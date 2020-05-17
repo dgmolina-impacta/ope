@@ -145,7 +145,7 @@ def update_so(numero):
         os.valor_servicos = form.mao_de_obra.data
         os.desconto = form.desconto.data
 
-        os.valor_total = float(os.valor_servicos + os.valor_produtos - os.desconto)
+        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos) - float(os.desconto)
 
         db.session.commit()
         flash('A OS foi alterada com sucesso!', 'success')
