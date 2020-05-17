@@ -99,7 +99,7 @@ class FullRegisterForm(FlaskForm):
     # Equipamento
     nro_de_serie = StringField("Número de Série:", validators=[Length(max=20)])
     
-    capacidade = DecimalField("Capacidade:")
+    capacidade = DecimalField("Capacidade (Quilogramas):")
 
     lacre_entrada = SelectField("* Lacre na entrada:", choices=[("sim", "Sim"), ("nao", "Não")])
 
@@ -113,3 +113,34 @@ class FullRegisterForm(FlaskForm):
         cliente = Cliente.query.filter_by(cpf=cpf.data).first()
         if cliente:
             raise ValidationError('Já existe um registro com este CPF. Por favor, verifique o registro existente.')
+
+class UpdateSoForm(FlaskForm):
+
+    status = SelectField("Status:", choices=[("Aberta", "Aberta"), ("Orçamento Aprovado", "Orçamento Aprovado"), ("Finalizada", "Finalizada")])
+    
+    problema_constatado = TextAreaField("Problema constatado:", validators=[Length(max=200)])
+
+    mao_de_obra = DecimalField("Mão de Obra:")
+
+    desconto = DecimalField("Desconto:")
+
+    submit = SubmitField("Alterar")
+
+class CloseSoForm(FlaskForm):
+
+    status = SelectField("Status:", choices=[("Finalizada", "Finalizada")])
+    
+    problema_constatado = TextAreaField("Problema constatado:", validators=[Length(max=200)])
+
+    mao_de_obra = DecimalField("Mão de Obra:")
+
+    desconto = DecimalField("Desconto:")
+
+    forma_de_pagamento = SelectField("Forma de pagamento:", choices=[("Dinheiro", "Dinheiro"), ("Cartão", "Cartão")])
+
+    garantia = DateField('Garantia:')
+
+    data_saida = DateField("Data de Saída:")
+
+    submit = SubmitField("Finalizar")
+

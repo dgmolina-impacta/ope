@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from osmanager import db
-from osmanager.ordens.forms import NewSOForm, SearchSOForm, AddComponentForm, FullRegisterForm
+from osmanager.ordens.forms import NewSOForm, SearchSOForm, AddComponentForm, FullRegisterForm, UpdateSoForm, CloseSoForm
 from osmanager.models import Cliente, Os, Equipamento, Peca
 from flask_login import login_required
 
@@ -97,7 +97,7 @@ def view_so(numero):
         flash("Itens adicionados com sucessos", "success")
     elif form.is_submitted():
         flash("Erro ao adicionar itens à Ordem de Serviço", "danger")
-    return render_template('view_so.html', title="Ordem de Serviço", os=os, cliente=cliente, equipamento=equipamento, pecas=pecas, orcamento=orcamento, form=form)
+    return render_template('view_so_v2.html', title="Ordem de Serviço", os=os, cliente=cliente, equipamento=equipamento, pecas=pecas, orcamento=orcamento, form=form)
 
 @ordens.route('/register/all', methods=['GET', 'POST'])
 @login_required
@@ -131,3 +131,59 @@ def full_register():
         flash("Registro realizado com sucesso", "success")
         return redirect(url_for("main.home"))
     return render_template('full_register.html', title="Cadastro Completo", form=form)
+
+@ordens.route('/update/so/<numero>', methods=['GET','POST'])
+@login_required
+def update_so(numero):
+    form = UpdateSoForm()
+    os = Os.query.get(numero)
+    cliente = Cliente.query.get(os.id_cliente)
+    
+    if form.validate_on_submit():
+        os.status = form.status.data
+        os.problema_constatado = form.problema_constatado.data
+        os.valor_servicos = form.mao_de_obra.data
+        os.desconto = form.desconto.data
+
+        os.valor_total = float(os.valor_servicos + os.valor_produtos - os.desconto)
+
+        db.session.commit()
+        flash('A OS foi alterada com sucesso!', 'success')
+        return redirect(url_for('ordens.view_so', numero=numero))
+    elif request.method == 'GET':
+        form.status.data = os.status
+        form.problema_constatado.data = os.problema_constatado
+        form.mao_de_obra.data = os.valor_servicos
+        form.desconto.data = os.desconto
+    return render_template('update_so.html', title="Alterar dados da OS", form=form, os=os, cliente=cliente)
+
+@ordens.route('/close/so/<numero>', methods=['GET','POST'])
+@login_required
+def close_so(numero):
+    form = CloseSoForm()
+    os = Os.query.get(numero)
+    cliente = Cliente.query.get(os.id_cliente)
+    
+    if form.validate_on_submit():
+        os.status = form.status.data
+        os.problema_constatado = form.problema_constatado.data
+        os.valor_servicos = form.mao_de_obra.data
+        os.desconto = form.desconto.data
+        os.tipo_pagamento = form.forma_de_pagamento.data
+        os.garantia = form.garantia.data
+        os.data_saida = form.data_saida.data
+
+        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos) - float(os.desconto)
+
+        db.session.commit()
+        flash('A OS foi finalizada com sucesso!', 'success')
+        return redirect(url_for('ordens.view_so', numero=numero))
+    elif request.method == 'GET':
+        form.status.data = os.status
+        form.problema_constatado.data = os.problema_constatado
+        form.mao_de_obra.data = os.valor_servicos
+        form.desconto.data = os.desconto
+        form.forma_de_pagamento.data = os.tipo_pagamento
+        form.garantia.data = os.garantia
+        form.data_saida.data = os.data_saida
+    return render_template('close_so.html', title="Finalizar OS", form=form, os=os, cliente=cliente)

@@ -53,6 +53,14 @@
                             <th scope="row">Estado</th>
                             <td class="td-on-view">{{ cliente.estado }}</td>
                         </tr>
+                        <tr>
+                            <th scope="row">Rua</th>
+                            <td class="td-on-view" colspan="2">{{ cliente.endereco }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Complemento</th>
+                            <td class="td-on-view" colspan="2">{{ cliente.complemento }}</td>
+                        </tr>
                     </table>
                 </div>
                 <div class="col-6">
@@ -66,28 +74,17 @@
                             <th scope="row">Bairro</th>
                             <td class="td-on-view">{{ cliente.bairro }}</td>
                         </tr>
+                        <tr>
+                            <th scope="row">Numero</th>
+                            <td class="td-on-view" colspan="2">{{ cliente.numero }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <table class="table table-borderless">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Rua</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.endereco }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Numero</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.numero }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Complemento</th>
-                            <td class="td-on-view" colspan="2">{{ cliente.complemento }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    
                 </div>
                 <div class="col-md-6 d-flex align-items-end justify-content-end">
                     <a class="bold-char btn btn-outline-danger" href="{{ url_for('clientes.update_client', id=cliente.id) }}">Alterar Dados do Cliente</a>

@@ -1,0 +1,253 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <h2>Finalizar Ordem de Serviço</h2>
+    <div class="content-section">
+
+        <h5 class="mt-2 pb-2">Cliente</h5>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Nome</th>
+                            <td class="td-on-view">{{ cliente.nome or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td class="td-on-view">{{ cliente.email or "" }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr class="border-bottom">
+                            <th scope="row">Telefone</th>
+                            <td class="td-on-view">{{ cliente.telefone or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h5 class="mt-2 pb-2">Serviço</h5>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Numero</th>
+                            <td class="td-on-view">{{ os.numero or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Data de entrada</th>
+                            <td class="td-on-view">{{ os.data_entrada or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Data de saída</th>
+                            <td class="td-on-view" colspan="2">{{ os.data_saida or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td class="td-on-view">{{ os.status or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tipo do defeito</th>
+                            <td class="td-on-view">{{ os.tipo_defeito or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Garantia</th>
+                            <td class="td-on-view">{{ os.garantia or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Problema constatado</th>
+                            <td class="td-on-view">{{ os.problema_constatado or "" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Problema informado</th>
+                            <td class="td-on-view">{{ os.problema_informado or "" }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Valor das peças</th>
+                                <td class="td-on-view">{{ os.valor_produtos or "" }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Desconto</th>
+                                <td class="td-on-view" colspan="2">{{ os.desconto or "" }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Valor total</th>
+                                <td class="td-on-view" colspan="2">{{ os.valor_total or "" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Mão de obra</th>
+                                <td class="td-on-view">{{ os.valor_servicos or "" }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Forma de pagamento</th>
+                                <td class="td-on-view" colspan="2">{{ os.tipo_pagamento or "" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+
+
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Finalização</legend>
+                
+                <div class="row pl-2">
+                    <div class="form-group col-md-4">
+                        {{ form.status.label(class="bold-char form-control-label") }}
+
+                        {% if form.status.errors %}
+                            {{ form.status(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.status.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.status(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group col-md-8">
+                        {{ form.problema_constatado.label(class="bold-char form-control-label") }}
+                        {% if form.problema_constatado.errors %}
+                            {{ form.problema_constatado(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.problema_constatado.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.problema_constatado(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row pl-2">
+
+                    <div class="form-group col-md-6">
+                        {{ form.mao_de_obra.label(class="bold-char form-control-label") }}
+                        {% if form.mao_de_obra.errors %}
+                            {{ form.mao_de_obra(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.mao_de_obra.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.mao_de_obra(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        {{ form.desconto.label(class="bold-char form-control-label") }}
+                        {% if form.desconto.errors %}
+                            {{ form.desconto(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.desconto.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.desconto(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+                <div class="row pl-2">
+                    
+                    <div class="form-group col-md-6">
+                        {{ form.forma_de_pagamento.label(class="bold-char form-control-label") }}
+                        {% if form.forma_de_pagamento.errors %}
+                            {{ form.forma_de_pagamento(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.forma_de_pagamento.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.forma_de_pagamento(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        {{ form.garantia.label(class="bold-char form-control-label") }}
+
+                        {% if form.garantia.errors %}
+                            {{ form.garantia(class="datepicker form-control is-invalid", type="date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.garantia.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.garantia(class="datepicker form-control", type="date") }}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <div class="row pl-2">
+
+                    <div class="form-group col-md-6">
+                        {{ form.data_saida.label(class="bold-char form-control-label") }}
+
+                        {% if form.data_saida.errors %}
+                            {{ form.data_saida(class="datepicker form-control is-invalid", type="date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.data_saida.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.data_saida(class="datepicker form-control", type="date") }}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </fieldset>
+            
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info")}}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

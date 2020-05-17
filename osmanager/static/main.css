@@ -113,7 +113,8 @@ a.article-title:hover {
 }
 
 .td-on-view {
-  text-align: right;
+  text-align: left;
+  padding-left: 5%!important;
 }
 
 .btn-add-component {
@@ -127,4 +128,12 @@ a.article-title:hover {
 
 .bigger-words {
   font-size: x-large;
+}
+
+.text-lg {
+  font-size: 110%;
+}
+
+.text-lg2 {
+  font-size: 120%;
 }
