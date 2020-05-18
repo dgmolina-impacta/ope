@@ -41,6 +41,7 @@ def search_so():
     page = request.args.get("page", 1, type=int)
     per_page = 2
     clientes = []
+    tem_registro = True
 
     if form.validate_on_submit():
         opcao_busca = form.opcao_busca.data
@@ -57,15 +58,23 @@ def search_so():
     else:
         if opcao_busca == "cpf":    
             cliente = Cliente.query.filter_by(cpf=valor_busca).first()
-            oss = Os.query.filter_by(id_cliente=cliente.id).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
-            for os in oss.items:
-                clientes.append(Cliente.query.get(os.id_cliente))
+            if cliente:
+                oss = Os.query.filter_by(id_cliente=cliente.id).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
+                for os in oss.items:
+                    clientes.append(Cliente.query.get(os.id_cliente))
+            else:
+                oss = None
+                tem_registro = False
+            
         else:
-            oss = Os.query.filter(db.text(f"numero LIKE '%{valor_busca}%'")).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
-            for os in oss.items:
-                clientes.append(Cliente.query.get(os.id_cliente))
+            oss = Os.query.filter(db.text(f"numero = {valor_busca}")).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
+            if not oss.items:
+                tem_registro = False
+            else:
+                for os in oss.items:
+                    clientes.append(Cliente.query.get(os.id_cliente))
 
-        if not oss.items:
+        if not tem_registro:
             flash("Nenhum registro encontrado", "danger")
 
     return render_template(
@@ -74,7 +83,8 @@ def search_so():
                           form=form, oss=oss,
                           clientes=clientes,
                           opcao_busca=opcao_busca,
-                          valor_busca=valor_busca)
+                          valor_busca=valor_busca,
+                          tem_registro=tem_registro)
 
 
 @ordens.route('/view/so/<numero>', methods=["GET", "POST"])
