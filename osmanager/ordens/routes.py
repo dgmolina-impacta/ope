@@ -107,7 +107,7 @@ def view_so(numero):
         flash("Itens adicionados com sucessos", "success")
     elif form.is_submitted():
         flash("Erro ao adicionar itens à Ordem de Serviço", "danger")
-    return render_template('view_so_v2.html', title="Ordem de Serviço", os=os, cliente=cliente, equipamento=equipamento, pecas=pecas, orcamento=orcamento, form=form)
+    return render_template('view_so.html', title="Ordem de Serviço", os=os, cliente=cliente, equipamento=equipamento, pecas=pecas, orcamento=orcamento, form=form)
 
 @ordens.route('/register/all', methods=['GET', 'POST'])
 @login_required
