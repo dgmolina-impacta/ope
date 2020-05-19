@@ -8,16 +8,16 @@ from osmanager.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', 
-                    validators=[DataRequired(), Length(min=2, max=20)])
+                    validators=[DataRequired(message="Campo brigatório."), Length(min=2, max=20)])
     
     email = StringField('Email', 
-                    validators=[DataRequired(), Email()])
+                    validators=[DataRequired(message="Campo brigatório."), Email(), Length(max=100)])
 
     password = PasswordField('Senha', 
-                    validators=[DataRequired()])
+                    validators=[DataRequired(message="Campo brigatório."), Length(max=60)])
 
     confirm_password = PasswordField('Confirmar Senha', 
-                    validators=[DataRequired(), EqualTo('password')])
+                    validators=[DataRequired(message="Campo brigatório."), EqualTo('password', message="As senhas não batem."), Length(max=60)])
 
     submit = SubmitField('Cadastrar')
 
@@ -35,10 +35,10 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     
     email = StringField('Email', 
-                    validators=[DataRequired(), Email()])
+                    validators=[DataRequired(message="Campo brigatório."), Email(), Length(max=100)])
 
     password = PasswordField('Password', 
-                    validators=[DataRequired()])
+                    validators=[DataRequired(message="Campo brigatório."), Length(max=60)])
 
     remember = BooleanField('Remember Me')
 
@@ -46,10 +46,10 @@ class LoginForm(FlaskForm):
 
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', 
-                    validators=[DataRequired(), Length(min=2, max=20)])
+                    validators=[DataRequired(message="Campo brigatório."), Length(min=2, max=20)])
     
     email = StringField('Email', 
-                    validators=[DataRequired(), Email()])
+                    validators=[DataRequired(message="Campo brigatório."), Email(message="Email inválido."), Length(max=100)])
 
     submit = SubmitField('Atualizar')
 

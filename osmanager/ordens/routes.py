@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from osmanager import db
 from osmanager.ordens.forms import NewSOForm, SearchSOForm, AddComponentForm, FullRegisterForm, UpdateSoForm, CloseSoForm
 from osmanager.models import Cliente, Os, Equipamento, Peca
+from osmanager.ordens.utils import busca_os
 from flask_login import login_required
 
 
@@ -39,7 +40,7 @@ def register_so(id):
 def search_so():
     form = SearchSOForm()
     page = request.args.get("page", 1, type=int)
-    per_page = 2
+    per_page = 10
     clientes = []
     tem_registro = True
 
@@ -51,31 +52,13 @@ def search_so():
         opcao_busca = request.args.get("opcao_busca", None, type=str)
         valor_busca = request.args.get("valor_busca", None, type=str)
 
-    if not (opcao_busca or valor_busca):
-        oss = Os.query.order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
-        for os in oss.items:
-            clientes.append(Cliente.query.filter_by(id=os.id_cliente).first())
-    else:
-        if opcao_busca == "cpf":    
-            cliente = Cliente.query.filter_by(cpf=valor_busca).first()
-            if cliente:
-                oss = Os.query.filter_by(id_cliente=cliente.id).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
-                for os in oss.items:
-                    clientes.append(Cliente.query.get(os.id_cliente))
-            else:
-                oss = None
-                tem_registro = False
-            
-        else:
-            oss = Os.query.filter(db.text(f"numero = {valor_busca}")).order_by(Os.numero.asc()).paginate(page=page, per_page=per_page)
-            if not oss.items:
-                tem_registro = False
-            else:
-                for os in oss.items:
-                    clientes.append(Cliente.query.get(os.id_cliente))
+    busca = busca_os(opcao_busca, valor_busca, page, per_page)
+    oss = busca['oss']
+    clientes = busca['clientes']
+    tem_registro = busca['tem_registro']
 
-        if not tem_registro:
-            flash("Nenhum registro encontrado", "danger")
+    if not tem_registro:
+        flash("Nenhum registro encontrado", "danger")
 
     return render_template(
                           "search_so.html",

@@ -6,46 +6,47 @@ from wtforms.validators import DataRequired, Length, Email
 
 
 class ClientForm(FlaskForm):
-    cpf = StringField('CPF:',
-                      validators=[DataRequired(), Length(min=11, max=11)])
+    cpf = StringField('CPF (Sem pontuação):',
+                      validators=[DataRequired(message="Campo obrigatório."), Length(min=11, max=11)])
     
     name = StringField('Nome:', 
-                       validators=[DataRequired(), Length(min=2, max=100)])
+                       validators=[DataRequired(message="Campo obrigatório."), Length(min=2, max=100)])
     
-    phone = StringField('Tel. Fixo:')
+    phone = StringField('Tel. Fixo:',
+                        validators=[Length(max=20)])
 
     mobile = StringField('Celular:', 
-                         validators=[DataRequired()])
+                         validators=[DataRequired(message="Campo obrigatório."), Length(max=20)])
 
     email = StringField('Email:', 
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(message="Campo obrigatório."), Email(), Length(max=100)])
 
     cep = StringField('CEP:', 
-                      validators=[DataRequired()])
+                      validators=[DataRequired(message="Campo obrigatório."), Length(min=8, max=9)])
     
     address = StringField('Endereço:', 
-                          validators=[DataRequired()])
+                          validators=[DataRequired(message="Campo obrigatório."), Length(max=150)])
 
     number = StringField('Número:', 
-                         validators=[DataRequired()])
+                         validators=[DataRequired(message="Campo obrigatório."), Length(max=5)])
     
-    complement = StringField('Complemento:')
+    complement = StringField('Complemento:', validators=[Length(max=50)])
 
     neighborhood = StringField('Bairro:',
-                               validators=[DataRequired()])
+                               validators=[DataRequired(message="Campo obrigatório."), Length(max=25)])
 
     city = StringField('Cidade:', 
-                       validators=[DataRequired()])
+                       validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
     
     state = StringField('Estado:', 
-                        validators=[DataRequired()])
+                        validators=[DataRequired(message="Campo obrigatório."), Length(min=2, max=2, message="UF - exemplo: SP")])
 
     submit = SubmitField('Cadastrar')
 
 class SearchClientForm(FlaskForm):
     opcao_busca = SelectField('Procurar por', choices=[("cpf", "CPF"), ("nome", "Nome")])
     
-    valor_busca = StringField('', validators=[DataRequired(), Length(min=2, max=30)])
+    valor_busca = StringField('', validators=[DataRequired(message="Campo obrigatório."), Length(min=2, max=30)])
 
     submit = SubmitField('Buscar')
 
@@ -53,35 +54,36 @@ class CheckCPFForm(FlaskForm):
     check_cpf_sub = SubmitField("Consultar")
 
     check_cpf_field = StringField('CPF:',
-                                  validators=[DataRequired(), Length(min=11, max=11)])
+                                  validators=[DataRequired(message="Campo obrigatório."), Length(min=11, max=11)])
 
 class UpdateClientForm(FlaskForm):
-    phone = StringField('Telefone')
+    phone = StringField('Telefone',
+                        validators=[Length(max=20)])
 
     mobile = StringField('Celular', 
-                         validators=[DataRequired()])
+                         validators=[DataRequired(message="Campo obrigatório."), Length(max=20)])
 
     email = StringField('Email', 
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(message="Campo obrigatório."), Email(), Length(max=100)])
 
     cep = StringField('CEP', 
-                      validators=[DataRequired()])
+                      validators=[DataRequired(message="Campo obrigatório."), Length(min=8, max=9)])
 
     address = StringField('Endereço', 
-                          validators=[DataRequired()])
+                          validators=[DataRequired(message="Campo obrigatório."), Length(max=150)])
 
     number = StringField('Número', 
-                         validators=[DataRequired()])
+                         validators=[DataRequired(message="Campo obrigatório."), Length(max=5)])
     
-    complement = StringField('Complemento')
+    complement = StringField('Complemento', validators=[Length(max=50)])
 
     neighborhood = StringField('Bairro',
-                               validators=[DataRequired()])
+                               validators=[DataRequired(message="Campo obrigatório."), Length(max=25)])
 
     city = StringField('Cidade', 
-                       validators=[DataRequired()])
+                       validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
     
     state = StringField('Estado', 
-                        validators=[DataRequired()])
+                        validators=[DataRequired(message="Campo obrigatório."), Length(min=2, max=2, message="UF - exemplo: SP")])
 
     submit = SubmitField('Atualizar')

@@ -56,14 +56,14 @@
                     <div class="form-group col-md-8">
                         {{ form.problema_informado.label(class="bold-char form-control-label") }}
                         {% if form.problema_informado.errors %}
-                            {{ form.problema_informado(class="form-control form-control-lg is-invalid") }}
+                            {{ form.problema_informado(class="form-control is-invalid") }}
                             <div class="invalid-feedback">
                                 {% for error in form.problema_informado.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.problema_informado(class="form-control form-control-lg") }}
+                            {{ form.problema_informado(class="form-control") }}
                         {% endif %}
                     </div>
                 </div>

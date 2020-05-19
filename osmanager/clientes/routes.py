@@ -31,7 +31,7 @@ def register_client():
 def search_client():
     form = SearchClientForm()
     page = request.args.get("page", 1, type=int)
-    per_page = 2
+    per_page = 10
 
     if form.validate_on_submit():
         opcao_busca = form.opcao_busca.data

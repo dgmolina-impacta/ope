@@ -53,6 +53,7 @@
             <tr>
             
             <th scope="col">Número</th>
+            <th scope="col">Data de Entrada</th>
             <th scope="col">Cliente</th>
             <th scope="col">CPF</th>
             <th scope='col'>Status</th>
@@ -64,6 +65,7 @@
                 <tr>
                     
                     <td><a href="{{ url_for('ordens.view_so', numero=os.numero)}}">{{ os.numero }}</a></td>
+                    <td>{{ os.data_entrada }}</td>
                     <td>{{ clientes[loop.index0].nome }}</td>
                     <td>{{ clientes[loop.index0].cpf }}</td>
                     <td>{{ os.status }}</td>

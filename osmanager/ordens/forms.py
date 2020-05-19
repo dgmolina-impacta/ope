@@ -6,20 +6,20 @@ from osmanager.models import Cliente
 
 
 class SearchSOForm(FlaskForm):
-    opcao_busca = SelectField('Procurar por', choices=[("cpf", "CPF"), ("numero_os", "Número da OS")])
+    opcao_busca = SelectField('Procurar por', choices=[("cpf", "CPF"), ("numero_os", "Número da OS"), ("status", "Status")])
 
-    valor_busca = StringField('', validators=[DataRequired(), Length(max=30)])
+    valor_busca = StringField('', validators=[DataRequired(message="Campo obrigatório."), Length(max=30)])
 
     submit = SubmitField('Buscar')
 
 class NewSOForm(FlaskForm):
-    data_entrada = DateField('* Data de Entrada:', validators=[DataRequired()])
+    data_entrada = DateField('* Data de Entrada:', validators=[DataRequired(message="Campo obrigatório.")])
 
-    tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(), Length(max=50)])
+    tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
 
     status = SelectField("Status:", choices=[("Aberta", "Aberta"), ("Orçamento Aprovado", "Orçamento Aprovado"), ("Finalizada", "Finalizada")])
 
-    problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(), Length(max=200)])
+    problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(message="Campo obrigatório."), Length(max=200)])
 
     submit = SubmitField("Registrar")
 
@@ -32,19 +32,19 @@ class NewSOForm(FlaskForm):
 
 #    lacre_saida = SelectField("* Lacre na saída:", choices=[("sim", "Sim"), ("nao", "Não")])
 
-    marca = StringField("* Marca:", validators=[DataRequired(), Length(max=20)])
+    marca = StringField("* Marca:", validators=[DataRequired(message="Campo obrigatório."), Length(max=20)])
 
-    modelo = StringField("* Modelo:", validators=[DataRequired(), Length(max=50)])
+    modelo = StringField("* Modelo:", validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
 
 
 class AddComponentForm(FlaskForm):
-    marca = StringField("* Marca:", validators=[DataRequired(), Length(max=30)])
+    marca = StringField("* Marca:", validators=[DataRequired(message="Campo obrigatório."), Length(max=30)])
 
-    nome = StringField("* Nome:", validators=[DataRequired(), Length(max=30)])
+    nome = StringField("* Nome:", validators=[DataRequired(message="Campo obrigatório."), Length(max=30)])
 
-    valor_unitario = DecimalField("** Valor Unitário:", validators=[DataRequired()])
+    valor_unitario = DecimalField("** Valor Unitário:", validators=[DataRequired(message="Campo obrigatório.")])
 
-    quantidade = IntegerField("* Quantidade:", validators=[DataRequired()])
+    quantidade = IntegerField("* Quantidade:", validators=[DataRequired(message="Campo obrigatório.")])
 
     submit = SubmitField("Adicionar")
 
@@ -52,47 +52,48 @@ class AddComponentForm(FlaskForm):
 class FullRegisterForm(FlaskForm):
     # Cliente
     cpf = StringField('CPF:',
-                      validators=[DataRequired(), Length(min=11, max=11)])
+                      validators=[DataRequired(message="Campo obrigatório."), Length(min=11, max=11)])
 
     name = StringField('Nome:',
-                       validators=[DataRequired(), Length(min=2, max=100)])
+                       validators=[DataRequired(message="Campo obrigatório."), Length(min=2, max=100, )])
 
-    phone = StringField('Tel. Fixo:')
+    phone = StringField('Tel. Fixo:',
+                        validators=[Length(max=20)])
 
     mobile = StringField('Celular:',
-                         validators=[DataRequired()])
+                         validators=[DataRequired(message="Campo obrigatório."), Length(max=20)])
 
     email = StringField('Email:',
-                        validators=[DataRequired(), Email()])
+                        validators=[DataRequired(message="Campo obrigatório."), Email(), Length(max=100)])
 
     cep = StringField('CEP:',
-                      validators=[DataRequired()])
+                      validators=[DataRequired(message="Campo obrigatório."), Length(min=8, max=9)])
 
     address = StringField('Endereço:',
-                          validators=[DataRequired()])
+                          validators=[DataRequired(message="Campo obrigatório."), Length(max=150)])
 
     number = StringField('Número:',
-                         validators=[DataRequired()])
+                         validators=[DataRequired(message="Campo obrigatório."), Length(max=5)])
 
-    complement = StringField('Complemento:')
+    complement = StringField('Complemento:', validators=[Length(max=50)])
 
     neighborhood = StringField('Bairro:',
-                               validators=[DataRequired()])
+                               validators=[DataRequired(message="Campo obrigatório."), Length(max=25)])
 
     city = StringField('Cidade:',
-                       validators=[DataRequired()])
+                       validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
 
     state = StringField('Estado:',
-                        validators=[DataRequired()])
+                        validators=[DataRequired(message="Campo obrigatório."), Length(min=2, max=2, message="UF - exemplo: SP")])
 
     # OS
-    data_entrada = DateField('* Data de Entrada:', validators=[DataRequired()])
+    data_entrada = DateField('* Data de Entrada:', validators=[DataRequired(message="Campo obrigatório.")])
 
-    tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(), Length(max=50)])
+    tipo_defeito = StringField("* Tipo de defeito:", validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
 
     status = SelectField("Status:", choices=[("Aberta", "Aberta"), ("Orçamento Aprovado", "Orçamento Aprovado"), ("Finalizada", "Finalizada")])
 
-    problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(), Length(max=200)])
+    problema_informado = TextAreaField("* Problema informado:", validators=[DataRequired(message="Campo obrigatório."), Length(max=200)])
 
     submit = SubmitField("Registrar")
 
@@ -105,9 +106,9 @@ class FullRegisterForm(FlaskForm):
 
 #    lacre_saida = SelectField("* Lacre na saída:", choices=[("sim", "Sim"), ("nao", "Não")])
 
-    marca = StringField("* Marca:", validators=[DataRequired(), Length(max=20)])
+    marca = StringField("* Marca:", validators=[DataRequired(message="Campo obrigatório."), Length(max=20)])
 
-    modelo = StringField("* Modelo:", validators=[DataRequired(), Length(max=50)])
+    modelo = StringField("* Modelo:", validators=[DataRequired(message="Campo obrigatório."), Length(max=50)])
 
     def validate_cpf(self, cpf):
         cliente = Cliente.query.filter_by(cpf=cpf.data).first()
