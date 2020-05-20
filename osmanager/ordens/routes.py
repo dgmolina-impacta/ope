@@ -86,6 +86,7 @@ def view_so(numero):
         for peca_da_os in os.pecas:
             valor_das_pecas = valor_das_pecas + float(peca_da_os.quantidade * peca_da_os.valor_unitario)
         os.valor_produtos = valor_das_pecas
+        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos or 0) - float(os.desconto)
         db.session.commit()
         flash("Itens adicionados com sucessos", "success")
     elif form.is_submitted():
@@ -138,7 +139,7 @@ def update_so(numero):
         os.valor_servicos = form.mao_de_obra.data
         os.desconto = form.desconto.data
 
-        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos) - float(os.desconto)
+        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos or 0) - float(os.desconto)
 
         db.session.commit()
         flash('A OS foi alterada com sucesso!', 'success')
@@ -166,7 +167,7 @@ def close_so(numero):
         os.garantia = form.garantia.data
         os.data_saida = form.data_saida.data
 
-        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos) - float(os.desconto)
+        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos or 0) - float(os.desconto)
 
         db.session.commit()
         flash('A OS foi finalizada com sucesso!', 'success')
