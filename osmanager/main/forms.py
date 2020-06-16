@@ -8,16 +8,16 @@ from osmanager.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', 
-                    validators=[DataRequired(message="Campo brigatório."), Length(min=2, max=20)])
+                    validators=[DataRequired(message="Campo brigatório"), Length(min=2, max=20, message="Digite entre 2 e 20 caracteres")])
     
     email = StringField('Email', 
-                    validators=[DataRequired(message="Campo brigatório."), Email(), Length(max=100)])
+                    validators=[DataRequired(message="Campo brigatório"), Email(), Length(max=100, message="Digite no máximo 100 caracteres")])
 
     password = PasswordField('Senha', 
-                    validators=[DataRequired(message="Campo brigatório."), Length(max=60)])
+                    validators=[DataRequired(message="Campo brigatório"), Length(max=60, message="Digite no máximo 60 caracteres")])
 
     confirm_password = PasswordField('Confirmar Senha', 
-                    validators=[DataRequired(message="Campo brigatório."), EqualTo('password', message="As senhas não batem."), Length(max=60)])
+                    validators=[DataRequired(message="Campo brigatório"), EqualTo('password', message="As senhas não batem."), Length(max=60, message="Digite no máximo 60 caracteres")])
 
     submit = SubmitField('Cadastrar')
 
@@ -35,10 +35,10 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     
     email = StringField('Email', 
-                    validators=[DataRequired(message="Campo brigatório."), Email(), Length(max=100)])
+                    validators=[DataRequired(message="Campo brigatório"), Email(), Length(max=100, message="Digite no máximo 100 caracteres")])
 
     password = PasswordField('Password', 
-                    validators=[DataRequired(message="Campo brigatório."), Length(max=60)])
+                    validators=[DataRequired(message="Campo brigatório"), Length(max=60, message="Digite no máximo 60 caracteres")])
 
     remember = BooleanField('Remember Me')
 
@@ -46,10 +46,10 @@ class LoginForm(FlaskForm):
 
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', 
-                    validators=[DataRequired(message="Campo brigatório."), Length(min=2, max=20)])
+                    validators=[DataRequired(message="Campo brigatório"), Length(min=2, max=20, message="Digite entre 2 e 20 caracteres")])
     
     email = StringField('Email', 
-                    validators=[DataRequired(message="Campo brigatório."), Email(message="Email inválido."), Length(max=100)])
+                    validators=[DataRequired(message="Campo brigatório"), Email(message="Email inválido."), Length(max=100, message="Digite no máximo 100 caracteres")])
 
     submit = SubmitField('Atualizar')
 
