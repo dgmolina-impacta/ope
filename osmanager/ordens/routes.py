@@ -86,7 +86,7 @@ def view_so(numero):
         for peca_da_os in os.pecas:
             valor_das_pecas = valor_das_pecas + float(peca_da_os.quantidade * peca_da_os.valor_unitario)
         os.valor_produtos = valor_das_pecas
-        os.valor_total = float(os.valor_servicos) + float(os.valor_produtos or 0) - float(os.desconto)
+        os.valor_total = float(os.valor_servicos or 0) + float(os.valor_produtos or 0) - float(os.desconto or 0)
         db.session.commit()
         flash("Itens adicionados com sucessos", "success")
     elif form.is_submitted():
