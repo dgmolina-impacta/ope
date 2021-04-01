@@ -1,4 +1,4 @@
-# ope
+# OPE | Daniel Gomes Molina
 Oficina Projeto Empresa IMPACTA - 2020
 
 Acesse a plataforma desenvolvida em https://so-manager.herokuapp.com/
