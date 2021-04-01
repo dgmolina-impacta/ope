@@ -3,6 +3,10 @@ Oficina Projeto Empresa IMPACTA - 2020
 
 Acesse a plataforma desenvolvida em https://so-manager.herokuapp.com/
 
+Usuário de teste:<br>
+email - teste@teste.com<br>
+senha - teste
+
 # Arquitetura da Solução
 
 A visão de cenários do sistema foi descrita através do diagrama de casos de uso demonstrado na Figura 1. Nele, estão representados os principais requisitos funcionais que compõem a solução.
